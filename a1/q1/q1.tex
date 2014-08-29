@@ -1,0 +1,55 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Question \#1}
+\author{Matt Chaney}
+
+\maketitle
+
+\begin{abstract}
+Demonstrate that you know how to use "curl" well enough to
+correctly POST data to a form.  Show that the HTML response that
+is returned is "correct".  That is, the server should take the
+arguments you POSTed and build a response accordingly.  Save the
+HTML response to a file and then view that file in a browser and
+take a screen shot.
+\end{abstract}
+
+\section{Resources}
+\begin{itemize}
+\item \LaTeX: \url{http://www.electronics.oulu.fi/latex/examples/example_1}
+\item \LaTeX: \url{http://scott.sherrillmix.com/blog/programmer/displaying-code-in-latex/}
+\item curl: \url{http://curl.haxx.se/docs/httpscripting.html#POST}
+\end{itemize}
+
+\section{Results}
+Using a simple wiki server built from the Go language net/http package tutorial, found here: \url{https://golang.org/doc/articles/wiki/}
+\begin{verbatim}
+[mchaney@mchaney-d gowiki]$ curl --verbose --data "body=something something" localhost:8080/save/TestPage
+* About to connect() to localhost port 8080 (#0)
+*   Trying ::1...
+* connected
+* Connected to localhost (::1) port 8080 (#0)
+> POST /save/TestPage HTTP/1.1
+> User-Agent: curl/7.27.0
+> Host: localhost:8080
+> Accept: */*
+> Content-Length: 24
+> Content-Type: application/x-www-form-urlencoded
+> 
+* upload completely sent off: 24 out of 24 bytes
+< HTTP/1.1 302 Found
+< Location: /view/TestPage
+< Date: Fri, 29 Aug 2014 13:32:01 GMT
+< Content-Length: 0
+< Content-Type: text/plain; charset=utf-8
+< 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+\end{verbatim}
+
+\end{document}
