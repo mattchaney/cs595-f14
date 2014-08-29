@@ -1,9 +1,17 @@
 \documentclass[10pt,letterpaper]{article}
-\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage[letterpaper,margin=1in]{geometry}
 \usepackage{graphicx}
+\usepackage[hyphens]{url}
 \usepackage{hyperref}
+\usepackage{listings}
+
+\hypersetup{colorlinks=true,
+breaklinks=true,
+urlcolor=blue,
+citecolor=NavyBlue}
 
 \begin{document}
+\lstset{language=Python, basicstyle=\small}
 
 \title{Question \#1}
 \author{Matt Chaney}
@@ -11,7 +19,7 @@
 \maketitle
 
 \begin{abstract}
-Demonstrate that you know how to use "curl" well enough to
+Demonstrate that you know how to use "curl" well enough to 
 correctly POST data to a form.  Show that the HTML response that
 is returned is "correct".  That is, the server should take the
 arguments you POSTed and build a response accordingly.  Save the
@@ -29,7 +37,7 @@ take a screen shot.
 \section{Results}
 Using a simple wiki server built from the Go language net/http package tutorial, found here: \url{https://golang.org/doc/articles/wiki/}
 \begin{verbatim}
-[mchaney@mchaney-d gowiki]$ curl --verbose --data "body=something something" localhost:8080/save/TestPage
+[mchaney@mchaney-d gowiki]$ curl -v -d "body=something something" localhost:8080/save/TestPage
 * About to connect() to localhost port 8080 (#0)
 *   Trying ::1...
 * connected

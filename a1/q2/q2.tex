@@ -1,0 +1,53 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true,
+breaklinks=true,
+urlcolor=blue,
+citecolor=NavyBlue}
+
+\begin{document}
+
+\title{Question \#2}
+\author{Matt Chaney}
+
+\maketitle
+
+\begin{abstract}
+\begin{verbatim}
+Write a Python program that:
+  1. takes one argument, like "Old Dominion" or "Virginia Tech"
+  2. takes another argument specified in seconds (e.g., "60" for 
+     one minute).
+  3. takes a URI as a third argument: 
+     http://sports.yahoo.com/college-football/scoreboard/
+     or
+     http://sports.yahoo.com/college-football/scoreboard/?week=2&conf=all
+     or
+     http://sports.yahoo.com/college-football/scoreboard/?week=1&conf=72
+     etc.
+  4. dereferences the URI, finds the game corresponding to the team
+     argument, prints out the current score (e.g., "Old Dominion 27, 
+     East Carolina 17), sleeps for the specified seconds, and then
+     repeats (until control-C is hit).
+\end{verbatim}
+\end{abstract}
+
+\section{Resources}
+\begin{itemize}
+\item Requests: `\url{http://docs.python-requests.org/en/latest/}
+\item BeautifulSoup: \url{http://www.crummy.com/software/BeautifulSoup/bs4/doc/}
+\end{itemize}
+
+\section{Results}
+\begin{verbatim}
+[mchaney@mchaney-d q2]$ python getscore.py "Texas A&M" 10 \
+> "http://sports.yahoo.com/college-football/scoreboard/"
+Texas A&M 52, South Carolina 28
+Texas A&M 52, South Carolina 28
+\end{verbatim}
+
+\end{document}
