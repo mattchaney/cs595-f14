@@ -1,0 +1,71 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\hypersetup{colorlinks=true,
+breaklinks=true,
+urlcolor=blue}
+
+\begin{document}
+\lstset{language=Python, basicstyle=\small}
+
+\title{Question \#3}
+\author{Matt Chaney}
+
+\maketitle
+
+\begin{abstract}
+\begin{verbatim}
+Consider the "bow-tie" graph in the Broder et al. paper (fig 9): 
+http://www9.org/w9cdrom/160/160.html
+
+    Now consider the following graph:
+    A --> B
+    B --> C
+    C --> D
+    C --> A
+    C --> G
+    E --> F
+    G --> C
+    G --> H
+    I --> H
+    I --> J
+    I --> K
+    J --> D 
+    L --> D
+    M --> A
+    M --> N
+    N --> D
+\end{verbatim}
+\end{abstract}
+
+\section{Resources}
+\begin{itemize}
+\item Graph Structure in the web: \url{http://www9.org/w9cdrom/160/160.html}
+\item Stanford, The web graph: \url{http://nlp.stanford.edu/IR-book/html/htmledition/the-web-graph-1.html}
+\item Notes from the class:\begin{verbatim}
+	SCC: Strongly Connected Component - all contained nodes are interconnected
+	IN: Connects into SCC, but not out from SCC
+	OUT: Connects out from SCC, but not in to SCC
+	Tendril: In or out excluding all SCC
+	Tube: IN->OUT or OUT->IN connection
+	Disconnected: Not connected to other sites
+	\end{verbatim}
+\end{itemize}
+
+\section{Results}
+\begin{verbatim}
+For the above graph, give the values for:
+
+    IN: A, B, C, G
+    SCC: M
+    OUT: D, H
+    Tendrils: L, K, I, J
+    Tubes: N
+    Disconnected: E, F
+
+\end{verbatim}
+\end{document}

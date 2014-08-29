@@ -1,0 +1,6 @@
+	SCC strongly connected component - all contained nodes are interconnected
+	IN connects into SCC, but not out from SCC
+	OUT connects out from SCC, but not in to SCC
+	TENDRIL in or out excluding all SCC
+	TUBE IN-OUT or OUT-IN connection
+	DC disconnected component - not connected to other sites
