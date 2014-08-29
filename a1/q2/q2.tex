@@ -3,13 +3,14 @@
 \usepackage{graphicx}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
+\usepackage{listings}
 
 \hypersetup{colorlinks=true,
 breaklinks=true,
-urlcolor=blue,
-citecolor=NavyBlue}
+urlcolor=blue}
 
 \begin{document}
+\lstset{language=Bash}
 
 \title{Question \#2}
 \author{Matt Chaney}
@@ -37,17 +38,35 @@ Write a Python program that:
 \end{abstract}
 
 \section{Resources}
+I used BeautifulSoup and Requests to write a bot that plays the game \url{http://www.kingdomofloathing.com/}.
+Code for which can be found @ \url{http://www.github.com/mattchaney/meatmachine/}.
+Both of these modules were useful for this assignment. 
+
 \begin{itemize}
-\item Requests: `\url{http://docs.python-requests.org/en/latest/}
+\item Requests: \url{http://docs.python-requests.org/en/latest/}
 \item BeautifulSoup: \url{http://www.crummy.com/software/BeautifulSoup/bs4/doc/}
 \end{itemize}
 
 \section{Results}
-\begin{verbatim}
+Code is provided in getscore.py.
+\begin{lstlisting}
 [mchaney@mchaney-d q2]$ python getscore.py "Texas A&M" 10 \
 > "http://sports.yahoo.com/college-football/scoreboard/"
 Texas A&M 52, South Carolina 28
 Texas A&M 52, South Carolina 28
-\end{verbatim}
+^CTraceback (most recent call last):
+  File "getscore.py", line 26, in <module>
+    time.sleep(period)
+KeyboardInterrupt
+[mchaney@mchaney-d q2]$ python getscore.py "alskds" 5 \
+"http://sports.yahoo.com/college-football/scoreboard/"
+Game not found
+[mchaney@mchaney-d q2]$ python getscore.py "Texas A&M" \
+"http://sports.yahoo.com/college-football/scoreboard/"
+Usage:
+	python getscore.py [school] [period] [uri]
+
+[mchaney@mchaney-d q2]$
+\end{lstlisting}
 
 \end{document}
