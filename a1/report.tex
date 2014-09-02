@@ -2,18 +2,15 @@
 
 \usepackage[letterpaper,margin=1.2in]{geometry}
 \usepackage{helvet}
-
 \usepackage{type1cm}         
-
-\usepackage{makeidx}         % allows index generation
-\usepackage{multicol}        % used for the two-column index
-\usepackage[bottom]{footmisc}% places footnotes at page bottom
+\usepackage{graphicx}
+\usepackage{makeidx}
+\usepackage{multicol}
+\usepackage[bottom]{footmisc}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
-
 \usepackage{xcolor,listings}
 \usepackage[T1]{fontenc}
-
 \usepackage{amsmath}
 
 \lstset{
@@ -38,6 +35,7 @@
 }
 
 \setcounter{tocdepth}{4}
+
 \hypersetup{colorlinks=true,
 breaklinks=true,
 urlcolor=blue,
@@ -53,6 +51,8 @@ linkcolor=black
 \newpage
 
 \tableofcontents
+
+\listoffigures
 
 \include{q1/q1}
 \include{q2/q2}
