@@ -1,23 +1,6 @@
-\documentclass[10pt,letterpaper]{article}
-\usepackage[letterpaper,margin=0.75in]{geometry}
-\usepackage{graphicx}
-\usepackage[hyphens]{url}
-\usepackage{hyperref}
-\usepackage{listings}
+\section{Question 2}
 
-\hypersetup{colorlinks=true,
-breaklinks=true,
-urlcolor=blue}
-
-\begin{document}
-\lstset{language=Bash}
-
-\title{Question \#2}
-\author{Matt Chaney}
-
-\maketitle
-
-\begin{abstract}
+\subsection{Question}
 \begin{verbatim}
 Write a Python program that:
   1. takes one argument, like "Old Dominion" or "Virginia Tech"
@@ -35,9 +18,8 @@ Write a Python program that:
      East Carolina 17), sleeps for the specified seconds, and then
      repeats (until control-C is hit).
 \end{verbatim}
-\end{abstract}
 
-\section{Resources}
+\subsection{Resources}
 I used BeautifulSoup and Requests to write a bot that plays the game \url{http://www.kingdomofloathing.com/}.
 Code for which can be found @ \url{http://www.github.com/mattchaney/meatmachine/}.
 Both of these modules were useful for this assignment. 
@@ -47,26 +29,56 @@ Both of these modules were useful for this assignment.
 \item BeautifulSoup: \url{http://www.crummy.com/software/BeautifulSoup/bs4/doc/}
 \end{itemize}
 
-\section{Results}
-Code is provided in getscore.py.
+\subsection{Source}
+\lstset{
+	language=Python,
+}
 \begin{lstlisting}
-[mchaney@mchaney-d q2]$ python getscore.py "Texas A&M" 10 \
-> "http://sports.yahoo.com/college-football/scoreboard/"
+#!/usr/bin/env python
+
+import sys
+import requests
+import time
+import re
+from bs4 import BeautifulSoup
+
+if __name__ == "__main__":
+	if len(sys.argv) != 4:
+		print "Usage:\n\tpython getscore.py [school] [seconds] [uri]\n"
+		sys.exit()
+	school = sys.argv[1]
+	period = float(sys.argv[2])
+	uri = sys.argv[3]
+	while True:
+		soup = BeautifulSoup(requests.get(uri).content)
+		gametag = soup.find('em', text=re.compile('^'+school+'$'))
+		if not gametag:
+			print "Game not found"
+			sys.exit()
+		game = gametag.parent.parent.parent
+		teams = [game.find_all('span', {'class':'team'})[0].em.text, game.find_all('span', {'class':'team'})[1].em.text]
+		scores = [game.find('span', {'class':'away'}).text, game.find('span', {'class':'home'}).text]
+		print teams[0] + ' ' + scores[0] + ', ' + teams[1] + ' ' + scores[1]
+		time.sleep(period)
+\end{lstlisting}
+
+\subsection{Answer}
+\lstset{
+	language=Bash,
+}
+\begin{lstlisting}
+[mchaney@mchaney-d q2]$ python getscore.py "Texas A&M" 10 "http://sports.yahoo.com/college-football/scoreboard/"
 Texas A&M 52, South Carolina 28
 Texas A&M 52, South Carolina 28
 ^CTraceback (most recent call last):
   File "getscore.py", line 26, in <module>
     time.sleep(period)
 KeyboardInterrupt
-[mchaney@mchaney-d q2]$ python getscore.py "alskds" 5 \
-"http://sports.yahoo.com/college-football/scoreboard/"
+[mchaney@mchaney-d q2]$ python getscore.py "alskds" 5 "http://sports.yahoo.com/college-football/scoreboard/"
 Game not found
-[mchaney@mchaney-d q2]$ python getscore.py "Texas A&M" \
-"http://sports.yahoo.com/college-football/scoreboard/"
+[mchaney@mchaney-d q2]$ python getscore.py "Texas A&M" "http://sports.yahoo.com/college-football/scoreboard/"
 Usage:
 	python getscore.py [school] [period] [uri]
 
 [mchaney@mchaney-d q2]$
 \end{lstlisting}
-
-\end{document}

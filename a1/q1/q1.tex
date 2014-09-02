@@ -1,41 +1,23 @@
-\documentclass[10pt,letterpaper]{article}
-\usepackage[letterpaper,margin=1in]{geometry}
-\usepackage{graphicx}
-\usepackage[hyphens]{url}
-\usepackage{hyperref}
-\usepackage{listings}
+\section{Question 1}
 
-\hypersetup{colorlinks=true,
-breaklinks=true,
-urlcolor=blue}
-
-\begin{document}
-\lstset{language=Python, basicstyle=\small}
-
-\title{Question \#1}
-\author{Matt Chaney}
-
-\maketitle
-
-\begin{abstract}
+\subsection{Question}
 Demonstrate that you know how to use "curl" well enough to 
 correctly POST data to a form.  Show that the HTML response that
 is returned is "correct".  That is, the server should take the
 arguments you POSTed and build a response accordingly.  Save the
 HTML response to a file and then view that file in a browser and
 take a screen shot.
-\end{abstract}
 
-\section{Resources}
+\subsection{Resources}
 \begin{itemize}
 \item \LaTeX: \url{http://www.electronics.oulu.fi/latex/examples/example_1}
 \item \LaTeX: \url{http://scott.sherrillmix.com/blog/programmer/displaying-code-in-latex/}
 \item curl: \url{http://curl.haxx.se/docs/httpscripting.html#POST}
 \end{itemize}
 
-\section{Results}
+\subsection{Answer}
 Using a simple wiki server built from the Go language net/http package tutorial, found here: \url{https://golang.org/doc/articles/wiki/}
-\begin{verbatim}
+\begin{lstlisting}
 [mchaney@mchaney-d gowiki]$ curl -v -d "body=something something" localhost:8080/save/TestPage
 * About to connect() to localhost port 8080 (#0)
 *   Trying ::1...
@@ -57,6 +39,4 @@ Using a simple wiki server built from the Go language net/http package tutorial,
 < 
 * Connection #0 to host localhost left intact
 * Closing connection #0
-\end{verbatim}
-
-\end{document}
+\end{lstlisting}
