@@ -2,7 +2,6 @@
 #! /usr/bin/python
 
 import requests
-import pickle
 
 MW_URI = "http://mementoweb.org/timemap/link/"
 
