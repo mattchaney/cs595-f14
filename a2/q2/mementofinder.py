@@ -12,9 +12,16 @@ if __name__ == '__main__':
 			if uri is '':
 				continue
 			count = 0
-			result = requests.get(MW_URI + uri)
-			if result.ok:
-				count = result.text.count('rel="memento"')
+			target_uri = MW_URI + uri
+			while True:
+				result = requests.get(target_uri)
+				if result.ok:
+					count = count + result.text.count('rel="memento"')
+				last_line = result.text.split('\n')[-1]
+				if 'rel="timemap"' not in last_line:
+					break
+				sites = re.findall(r'<([^<|^>]+)>', last_line)
+				target_uri = sites[1]
 			mementos[uri] = count
 			print 'found %d mementos for uri: %s' % (count, uri)
 	with open('results', 'w') as o:
