@@ -43,21 +43,23 @@ def get_oauth():
                 resource_owner_secret=OAUTH_TOKEN_SECRET)
 
 def find_uris(uris):
-	for search_item in SEARCH_ITEMS:
-		result = requests.get(SEARCH_URI + search_item + '&filter%3Alinks&count=1000', auth=oauth)
-		for status in result.json()['statuses']:
-			for url in status['entities']['urls']:
-				if len(uris) == 1000:
-					return
-				if 'expanded_url' in url:
-					try:
-						result = requests.get(url['expanded_url'])
-						# only add expanded uris if they aren't in the list already
-						if result.status_code == 200 and result.url not in uris:
-							add_uri(uris, result.url)
-					except Exception as e:
-						print e
-						continue
+	with open('output', 'a') as outfile:
+		for search_item in SEARCH_ITEMS:
+			result = requests.get(SEARCH_URI + search_item + '&filter%3Alinks&count=1000', auth=oauth)
+			for status in result.json()['statuses']:
+				for url in status['entities']['urls']:
+					if len(uris) == 1000:
+						return
+					if 'expanded_url' in url:
+						try:
+							result = requests.get(url['expanded_url'], timeout=4)
+							# only add expanded uris if they aren't in the list already
+							if result.status_code == 200 and result.url not in uris:
+								add_uri(uris, result.url)
+								outfile.write('%s\n' % result.url)
+						except Exception as e:
+							print e
+							continue
 
 def add_uri(uris, uri):
 	uris.add(uri)
@@ -67,9 +69,10 @@ if __name__ == "__main__":
 	oauth = get_oauth()
 	uris = set()
 	# read in previous set of uris
-	with open('output', 'r') as infile:
-		for line in infile.readlines():
-			add_uri(uris, line.strip())
+	try:
+		with open('output', 'r') as infile:
+			for line in infile.readlines():
+				add_uri(uris, line.strip())
+	except IOError:
+		pass
 	find_uris(uris)
-	with open('output', 'w') as outfile:
-		outfile.writelines('%s\n' % uri for uri in uris)

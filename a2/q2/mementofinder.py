@@ -2,11 +2,13 @@
 #! /usr/bin/python
 
 import requests
+import re
 
 MW_URI = "http://mementoweb.org/timemap/link/"
 
 if __name__ == '__main__':
 	with open('output', 'r') as f:
+		output = open('results', 'w')
 		mementos = {}
 		for uri in f.read().split('\n'):
 			if uri is '':
@@ -24,6 +26,5 @@ if __name__ == '__main__':
 				target_uri = sites[1]
 			mementos[uri] = count
 			print 'found %d mementos for uri: %s' % (count, uri)
-	with open('results', 'w') as o:
-		for item, num in mementos.iteritems():
-			o.write('%s %d\n' % (item, num))
+			output.write('%s %d\n' % (uri, count))
+	output.close()
