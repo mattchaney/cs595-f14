@@ -8,7 +8,7 @@ MW_URI = "http://mementoweb.org/timemap/link/"
 
 if __name__ == '__main__':
 	with open('output', 'r') as f:
-		output = open('results', 'w')
+		output = open('site_mementos', 'w')
 		mementos = {}
 		for uri in f.read().split('\n'):
 			if uri is '':
