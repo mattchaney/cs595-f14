@@ -19,25 +19,25 @@ def getdate(uri):
 
 if __name__ == '__main__':
 	# Remove already completed links
-	with open('output') as outfile:
-		output = [line.split(' ')[0] for line in outfile if line.rstrip('\n').split(' ')[1] != '0']
-	with open('results') as prevfile:
+	with open('site_mementos') as infile:
+		input_uris = [line.split(' ')[0] for line in infile if line.rstrip('\n').split(' ')[1] != '0']
+	with open('site_ecd_all') as prevfile:
 		prev = [line.split(' ')[0] for line in prevfile]	
-	uris = [line for line in output if line not in prev]
-	print "Starting on uri #{}".format(len(output))
+	uris = [uri for uri in input_uris if uri not in prev]
+	print 'Starting on uri #{}'.format(len(uris))
 
 	# Work on the rest
-	with open('results','a') as outfile:
-		with futures.ThreadPoolExecutor(max_workers=4) as executor:
+	with open('site_ecd_all','a') as outfile:
+		with futures.ThreadPoolExecutor(max_workers=8) as executor:
  			urifutures = [executor.submit(getdate, uri) for uri in uris]
  			for future in futures.as_completed(urifutures):
 	 			try:
 	 				data = future.result()
 	 			except Exception as exc:
-	 				print "{} generated an exception: {}".format(uri, exc)
+	 				print '{} generated an exception: {}'.format(uri, exc)
 	 			if len(data) == 2:
-	 				print "Writing data: {}".format(data)
+	 				print 'Writing data: {}'.format(data)
 	 				outfile.write('{} {}\n'.format(data[0], data[1]))
 	 			else:
-	 				print "Found no data"
+	 				print 'Found no data'
 		
