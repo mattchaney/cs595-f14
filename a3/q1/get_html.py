@@ -4,7 +4,6 @@ import requests
 import futures
 import md5
 from bs4 import BeautifulSoup
-import sys
 
 def convert(uri):
 	return md5.new(uri).hexdigest()
