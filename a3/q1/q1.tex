@@ -8,12 +8,14 @@
 \item md5: \url{https://docs.python.org/2/library/md5.html}
 \item requests: \url{http://docs.python-requests.org/en/latest/}
 \item futures: \url{https://pypi.python.org/pypi/futures}
+\item BeautifulSoup: \url{http://www.crummy.com/software/BeautifulSoup/bs4/doc/}
 \end{itemize}
 
 \subsection{Answer}
 Using the python script in Listing \ref{listing:gethtml}, 1000 unique URIs were dereferenced and
-their contents were stored into a file with the filename as the md5-hashed URI. Another file was created,
-called {\tt uri\_map} that was used to map the URIs to their md5-hashed filenames.
+their raw contents were stored in the {\tt html/raw/} folder as a file with the filename as the
+md5-hashed URI. These were then stripped of all html elements and their processed contents were 
+stored in the {\tt html/processed/} folder as the same md5-hashed filename.
 
 \newpage
 \lstinputlisting[language=Python, caption={get\_html.py}, label=listing:gethtml]{q1/get_html.py}
