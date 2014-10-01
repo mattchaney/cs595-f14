@@ -27,9 +27,9 @@ if __name__ == '__main__':
 					continue
 				if status_code == 200:
 					hashed_uri = convert(uri)
-					print 'Writing {} as {}'.format(uri, hashed_uri)
+					print('Writing {} as {}'.format(uri, hashed_uri))
 					map_file.write('{} {}\n'.format(uri, hashed_uri))
-					with open('html/' + hashed_uri, 'w') as outfile:
+					with open('html/raw/' + hashed_uri, 'w') as outfile:
 						outfile.write(content)
 				else:
 					print('Not writing {}, bad status code: {}'.format(uri, status_code))

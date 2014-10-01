@@ -5,7 +5,15 @@
 
 \subsection{Resources}
 \begin{itemize}
-\item None: yet
+\item md5: \url{https://docs.python.org/2/library/md5.html}
+\item requests: \url{http://docs.python-requests.org/en/latest/}
+\item futures: \url{https://pypi.python.org/pypi/futures}
 \end{itemize}
 
 \subsection{Answer}
+Using the python script in Listing \ref{listing:gethtml}, 1000 unique URIs were dereferenced and
+their contents were stored into a file with the filename as the md5-hashed URI. Another file was created,
+called {\tt uri\_map} that was used to map the URIs to their md5-hashed filenames.
+
+\newpage
+\lstinputlisting[language=Python, caption={get\_html.py}, label=listing:gethtml]{q1/get_html.py}
