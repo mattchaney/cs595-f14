@@ -1,0 +1,58 @@
+\documentclass[10pt,letterpaper]{scrartcl}
+
+\usepackage[letterpaper,margin=1.2in]{geometry}
+\usepackage{helvet}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{verbatim}
+
+\lstset{
+    basicstyle=\scriptsize,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=5pt,
+    showspaces=false, % don't show spaces by adding underscores
+    showstringspaces=false, % don't underline spaces in strings
+    showtabs=false, % don't show tabs with underscores
+    frame=shadowbox,
+    tabsize=4,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+    keywordstyle=\color{blue!70},
+    commentstyle=\color{red!50!green!50!blue!50},
+    rulesepcolor=\color{red!20!green!20!blue!20},
+    numberbychapter=false,
+    stringstyle=\ttfamily %typewriter type for strings
+}
+
+\setcounter{tocdepth}{2}
+
+\hypersetup{colorlinks=true,
+breaklinks=true,
+urlcolor=blue,
+linkcolor=black
+}
+
+\begin{document}
+
+\author{Mathew Chaney}
+\title{Assignment 2}
+\subtitle{Fall 2014\\ CS595 Web Science\\ Dr. Michael Nelson}
+\maketitle
+\newpage
+
+\tableofcontents
+\listoffigures
+\lstlistoflistings
+
+\include{q1/q1}
+% \include{q2/q2}
+% \include{q3/q3}
+
+\end{document}
