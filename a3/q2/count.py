@@ -1,10 +1,13 @@
 #! /usr/bin/python
 
 import os
-import sys
 import re
+import sys
 import pickle
+import math
 from string import punctuation
+
+uri_map = pickle.load(open('uri_map', 'rb'))
 
 def count_terms(term, file_list=os.listdir('html/processed')):
 	for filename in file_list:
@@ -33,8 +36,15 @@ def get_uris():
 		uri_file[uri] = filename
 	return uri_file
 
-def process_file(uri):
-	filename = get_filename(uri)
+def get_filename(uri):
+	if uri_map.has_key(uri):
+		return uri_map[uri]
+	return None
+
+def strip_html(filename):
+	if not filename:
+		print 'invalid filename'
+		return
 	with open('html/processed/' + filename) as infile:
 		# To remove URI in first line
 		infile.readline()
@@ -42,29 +52,30 @@ def process_file(uri):
 		strs = infile.read()
 		r = re.compile(r'[{}]'.format(punctuation))
 		content = r.sub(' ', strs)
-	return content
+		return content
 
 def get_tf(content, term):
 	return float(content.count(term)) / float(len(content.split()))
 
-def get_idf(content, term):
-	uri_map = pickle.load(open('uri_map', 'rb'))
+def get_idf(term):
 	present = set()
 	absent = set()
 	for uri, filename in uri_map.iteritems():
-		content = process_file(filename)
+		content = strip_html(filename)
+		if not content:
+			continue
 		if term in content:
 			present.add(uri)
 		else:
 			absent.add(uri)
-	return float(len(present)) / float(len(absent))
+	return math.log(float(len(absent)) / float(len(present)), 2)
 
-def get_tfidf(content, term):
-	pass
+def process_uri(uri, term):
+	tf = get_tf(strip_html(get_filename(uri)), term)
+	tfidf = tf * idf
+	return tf, tfidf
 
-def get_filename(uri):
-	uri_map = pickle.load(open('uri_map', 'rb'))
-	return uri_map[uri]
+idf = get_idf('shadow')
 
 if __name__ == '__main__':
 	# Used to bulk print all occurences > 0 of search term
@@ -80,7 +91,6 @@ if __name__ == '__main__':
 	# Used to count occurences of the search term in a list
 	# of URIs specified in the 'uri_counts' file
 	elif len(sys.argv) == 4 and sys.argv[1] == 'count':
-		uri_map = pickle.load(open('uri_map', 'rb'))
 		with open('uri_counts', 'w') as outfile:
 			for uri, filename in uri_map.iteritems():
 				count, uri = count_terms(sys.argv[2], [filename])
@@ -90,5 +100,16 @@ if __name__ == '__main__':
 	elif len(sys.argv) == 3 and sys.argv[1] == 'uri':
 		print get_filename(sys.argv[2])
 
+	# Used to calculate all tf, idf, tfidf values and write them to a file
+	# for a selection of URIs
+	elif len(sys.argv) == 3 and sys.argv[1] == 'calc':
+		term = sys.argv[2]
+		with open('uri_counts') as infile:
+			uris = uris = [line.split()[1] for line in infile.read().split('\n')]
+			with open('uri_frequencies', 'w') as outfile:
+				outfile.write('{:<7} {:<7} {:<7} {:<7}\n'.format('TFIDF', 'TF', 'IDF', 'URI'))
+				for uri in uris:
+					tf, tfidf = process_uri(uri, term)
+					outfile.write('{:5.4f}  {:5.4f}  {:5.4f}  {}\n'.format(tfidf, tf, idf, uri))
 	else:
 		print('Usage:\n\tpython grep.py <SEARCH_TERM>')
