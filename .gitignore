@@ -2,3 +2,8 @@
 *.out
 *.log
 *.pyc
+*.lol
+*.toc
+*.Rhistory
+*.lof
+*.RData
