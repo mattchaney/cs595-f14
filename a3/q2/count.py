@@ -35,13 +35,13 @@ def get_uris():
 
 def process_file(uri):
 	filename = get_filename(uri)
-	infile = open('html/processed/' + filename)
-	# To remove URI in first line
-	infile.readline()
-	# Removing all punctuation
-	strs = infile.read()
-	r = re.compile(r'[{}]'.format(punctuation))
-	content = r.sub(' ', strs)
+	with open('html/processed/' + filename) as infile:
+		# To remove URI in first line
+		infile.readline()
+		# Removing all punctuation
+		strs = infile.read()
+		r = re.compile(r'[{}]'.format(punctuation))
+		content = r.sub(' ', strs)
 	return content
 
 def get_tf(content, term):
@@ -49,8 +49,15 @@ def get_tf(content, term):
 
 def get_idf(content, term):
 	uri_map = pickle.load(open('uri_map', 'rb'))
+	present = set()
+	absent = set()
 	for uri, filename in uri_map.iteritems():
-		count_terms(sys.argv[2], [filename])
+		content = process_file(filename)
+		if term in content:
+			present.add(uri)
+		else:
+			absent.add(uri)
+	return float(len(present)) / float(len(absent))
 
 def get_tfidf(content, term):
 	pass
