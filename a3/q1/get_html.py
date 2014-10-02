@@ -19,7 +19,6 @@ if __name__ == '__main__':
 		uris = [uri.rstrip('\n') for uri in infile]
 
 	with futures.ThreadPoolExecutor(max_workers=8) as executor:
-		uri_map = {}
 		uri_futures = [executor.submit(get_html, uri) for uri in uris]
 		for future in futures.as_completed(uri_futures):
 			try:
@@ -29,17 +28,16 @@ if __name__ == '__main__':
 				continue
 			if status_code == 200:
 				hashed_uri = convert(uri)
-				uri_map[hashed_uri] = uri
 				print('Writing {} as {}'.format(uri, hashed_uri))
 				try:
 					with open('html/raw/' + hashed_uri, 'w') as outfile:
+						outfile.write(uri + '\n')
 						outfile.write(content)
 					with open('html/processed/' + hashed_uri, 'w') as outfile:
+						outfile.write(uri + '\n')
 						outfile.write(BeautifulSoup(content).get_text().encode('utf8'))
 				except Exception as e:
 					print '**** ERROR **** --- ' + uri
 					print e
 			else:
 				print('Not writing {}, bad status code: {}'.format(uri, status_code))
-		pickle.dump(uri_map, open('html/uri_map', 'wb'))
-		
