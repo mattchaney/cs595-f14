@@ -1,4 +1,4 @@
-\documentclass[10pt,letterpaper]{scrartcl}
+\documentclass[10pt,letterpaper,bibliography=totocnumbered]{scrartcl}
 
 \usepackage[letterpaper,margin=1.2in]{geometry}
 \usepackage{helvet}
@@ -53,5 +53,9 @@ linkcolor=black
 \include{q1/q1}
 % \include{q2/q2}
 % \include{q3/q3}
+
+\nocite{*}
+\bibliography{report}
+\bibliographystyle{plain}
 
 \end{document}
