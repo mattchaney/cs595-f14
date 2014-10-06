@@ -7,6 +7,8 @@
 *.Rhistory
 *.lof
 *.RData
+*.bbl
+*.blg
 CarbonDate
 missing
 html
