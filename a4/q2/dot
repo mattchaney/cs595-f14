@@ -1,0 +1,13 @@
+digraph unix {
+	"http://www.google.com/" -> "http://news.google.com/nwshp?hl=en&tab=wn" [label="news.google.com"];
+	"http://www.google.com/" -> "http://www.google.com/intl/en/options/" [label="www.google.com"];
+	"http://www.google.com/" -> "http://www.google.com/imghp?hl=en&tab=wi" [label="www.google.com"];
+	"http://www.google.com/" -> "http://maps.google.com/maps?hl=en&tab=wl" [label="maps.google.com"];
+	"http://www.google.com/" -> "https://plus.google.com/116899029375914044550" [label="plus.google.com"];
+	"http://www.google.com/" -> "https://play.google.com/?hl=en&tab=w8" [label="play.google.com"];
+	"http://www.google.com/" -> "http://www.google.com/history/optout?hl=en" [label="www.google.com"];
+	"http://www.google.com/" -> "https://accounts.google.com/ServiceLogin?hl=en&continue=http://www.google.com/" [label="accounts.google.com"];
+	"http://www.google.com/" -> "https://mail.google.com/mail/?tab=wm" [label="mail.google.com"];
+	"http://www.google.com/" -> "https://drive.google.com/?tab=wo" [label="drive.google.com"];
+	"http://www.google.com/" -> "http://www.youtube.com/?tab=w1" [label="www.youtube.com"];
+}

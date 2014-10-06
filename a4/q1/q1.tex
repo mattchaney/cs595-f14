@@ -4,3 +4,9 @@
 \verbatiminput{q1/q1.txt}
 
 \subsection{Answer}
+Using the python requests module \cite{py:requests}, the content of each of the 100 randomly selected URIs was downloaded. Then, using the BeautifulSoup module \cite{py:soup}, each downloaded page was converted into a BeautifulSoup document tree, searched for all HTML links of the form:
+
+\begin{verbatim}
+<a href="http://www.urlhere.com/path/to/some/resource/">link text</a>
+\end{verbatim}
+

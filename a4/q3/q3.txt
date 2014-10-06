@@ -1,0 +1,18 @@
+Download and install Gephi:
+
+https://gephi.org/
+
+Load the dot file created in #2 and use Gephi to:
+
+- visualize the graph (you'll have to turn on labels)
+- calculate HITS and PageRank
+- avg degree
+- network diameter
+- connected components
+
+Put the resulting graphs in your report.
+
+You might need to choose the 100 sites with an eye toward
+creating a graph with at least one component that is nicely
+connected.  You can probably do this by selecting some portion
+of your links (e.g., 25, 50) from the same site.  

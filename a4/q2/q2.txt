@@ -1,0 +1,22 @@
+Using these 100 files, create a single GraphViz "dot" file of
+the resulting graph.  Learn about dot at:
+
+Examples:
+http://www.graphviz.org/content/unix
+http://www.graphviz.org/Gallery/directed/unix.gv.txt
+
+Manual:
+http://www.graphviz.org/Documentation/dotguide.pdf
+
+Reference:
+http://www.graphviz.org/content/dot-language
+http://www.graphviz.org/Documentation.php
+
+Note: you'll have to put explicit labels on the graph, see:
+https://gephi.org/users/supported-graph-formats/graphviz-dot-format/
+
+(note: actually, I'll allow any of the formats listed here:
+
+https://gephi.org/users/supported-graph-formats/
+
+but "dot" is probably the simplest.)
