@@ -4,9 +4,11 @@
 \verbatiminput{q1/q1.txt}
 
 \subsection{Answer}
-Using the python requests module \cite{py:requests}, the content of each of the 100 randomly selected URIs was downloaded. Then, using the BeautifulSoup module \cite{py:soup}, each downloaded page was converted into a BeautifulSoup document tree, searched for all HTML links of the form:
+To obtain the outbound links of 100 URIs for use in building a network graph, a subset of 1000 URIs from a previous assignment was selected semi-randomly. The original list was sorted lexicographically and then a contiguous section was taken from it for processing. This was done to increase the likelihood that a portion of the resulting list came from the same domain since it is probable that of 1000 randomly selected URIs from Twitter, some pointed to resources on the same domain.\\
 
-\begin{verbatim}
-<a href="http://www.urlhere.com/path/to/some/resource/">link text</a>
-\end{verbatim}
+The HTML of each URI was previously downloaded from another assignment and organized by creating a mapping from the URI to the filename of its contents, called {\tt uri\_map}. This data structure is a pickled\cite{py:pickle} python dictionary object that maps from a URI to a filename. This file contains the URI as the first line and the HTML contents of that URI when it was dereferenced. This mapping was created to save time when looking for the contents of a particular URI because only some of the URIs were successfully downloaded at the time the files were created.\\
 
+After the list was chosen, each of the files was parsed using the BeautifulSoup\cite{py:soup} module to extract all of the out-links. The python code that was used to parse the content is displayed in Listing \ref{listing:getlinks}.
+
+\newpage
+\lstinputlisting[language=Python, caption={get\_links.py}, label={listing:getlinks}]{q1/get_links.py}

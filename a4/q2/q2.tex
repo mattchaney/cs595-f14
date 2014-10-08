@@ -4,4 +4,7 @@
 \verbatiminput{q2/q2.txt}
 
 \subsection{Answer}
-Using the module urlparse\cite{py:urlparse} to extract the top level domain name for use as the label.
+Using python to parse each of the 100 files from Question 1, all of the links that each URI contained were extracted from the source html, converted to the GraphViz\cite{dot:graphviz} dot format and stored in a file named {\tt links.gv}. To save space in the graph the urlparse\cite{py:urlparse} python module was used to shorten the URIs used as labels. The code used is in Listing \ref{listing:dot}.
+
+\newpage
+\lstinputlisting[language=Python, label=listing:dot, caption={dot.py}]{q2/dot.py}
