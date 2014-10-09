@@ -62,7 +62,7 @@ Page Rank is an algorithm that is used to measure the importance of a node in a 
 \label{fig:pagerank}
 \end{figure}
 
-The average degree of the graph was also calculated. The results are found in Figures \ref{fig:degree}, \ref{fig:indegree} and \ref{fig:outdegree}.
+The average degree of the graph, or links into or out of each node, was also calculated. The results are found in Figures \ref{fig:degree}, \ref{fig:indegree} and \ref{fig:outdegree}.
 
 \begin{figure}[h!]
 \centering
@@ -86,8 +86,10 @@ The average degree of the graph was also calculated. The results are found in Fi
 \end{figure}
 
 \clearpage
+ 
+The diameter of a network is defined as the maximum of the all the shortest paths between any two nodes in the network. The network diameter was calculated for the example graph and the results are found in Figures \ref{fig:between}, \ref{fig:closeness} and \ref{fig:eccentricity}.\\
 
-The network diameter was calculated and the results are found in Figures \ref{fig:between}, \ref{fig:closeness} and \ref{fig:eccentricity}.
+The ``betweenness centrality'' of a graph measures how often a node appears on the shortest paths between nodes in the network.
 
 \begin{figure}[h!]
 \centering
@@ -95,6 +97,8 @@ The network diameter was calculated and the results are found in Figures \ref{fi
 \caption{Betweenness Centrality Distribution}
 \label{fig:between}
 \end{figure}
+
+The ``closeness centrality'' is the average distance from a given starting node to all other nodes in the network.
 
 \begin{figure}[h!]
 \centering
@@ -105,6 +109,8 @@ The network diameter was calculated and the results are found in Figures \ref{fi
 
 \clearpage
 
+The ``eccentricity'' is the distance from a given starting node to the farthest node from it in the network.
+
 \begin{figure}[h!]
 \centering
 \fbox{\includegraphics[scale=0.5]{q3/graphs/diameter/eccentricity_distribution.png}}
@@ -112,7 +118,7 @@ The network diameter was calculated and the results are found in Figures \ref{fi
 \label{fig:eccentricity}
 \end{figure}
 
-The connected components were found. The results are in Figure \ref{fig:connected}
+The number of strongly connected components were found to be six in total and the number of weakly connected components was 738. The size distribution is shown in the graph in Figure \ref{fig:connected}
 
 \begin{figure}[h!]
 \centering

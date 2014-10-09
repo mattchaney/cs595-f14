@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup
 
 LINKS_DIR = 'links' + os.sep
 HTML_DIR = 'html' + os.sep
-
 uri_map = pickle.load(open('uri_map', 'rb'))
 
 def get_links(filename):
