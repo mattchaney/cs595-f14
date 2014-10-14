@@ -1,0 +1,21 @@
+Explore the friendship paradox for your Twitter account.  Since
+Twitter has directional links (i.e., "followers" and "following"),
+we'll be investigating if the people you follow (Twitter calls these
+people "friends") follow more people than you.  If you are following <
+50 people, use my twitter account "phonedude_mln" instead of your own.
+
+Create a graph of the number of friends (y-axis) and the friends sorted
+by number of friends (x-axis).  (The friends don't need to be labeled on
+the x-axis as "Bob", "Mary", etc. -- just 1, 2, 3 ...)  In other words,
+if you have 100 friends your x-axis will be 1..101 (100 + you), and the
+y-axis value will be number of friends that each of those friends has.
+The friend with the lowest number of friends will be first and the friend
+with the highest number of friends will be last.
+
+Do include yourself in the graph and label yourself accordingly.  Compute
+the mean, standard deviation, and median of the number of friends that
+your friends have.
+
+The appropriate part of the Twitter API to use is:
+
+https://dev.twitter.com/rest/reference/get/friends/list
