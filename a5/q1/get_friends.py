@@ -24,8 +24,9 @@ OAUTH = get_oauth()
 def get_limit():
 	response = requests.get(LIMIT_URI, params={'resources':'friends'}, auth=OAUTH)
 	data = json.loads(response.text)
-	return data['resources']['friends']['/friends/list']['remaining'],
-		   data['resources']['friends']['/friends/list']['reset']
+	remaining = data['resources']['friends']['/friends/list']['remaining']
+	reset 	  =	data['resources']['friends']['/friends/list']['reset']
+	return remaining, reset
 
 def wait_for_reset(reset):
 	naptime = reset - time.time() + 5
@@ -41,7 +42,7 @@ def get_friends(screen_name):
 	limit, reset = get_limit()
 	while True:
 		if limit == 0:
-		limit, reset = wait_for_reset(reset)
+			limit, reset = wait_for_reset(reset)
 		response = requests.get(SEARCH_URI, params={'screen_name':screen_name, 
 					'cursor':next_cursor, 'count':200}, auth=OAUTH)
 		if not response:
@@ -71,7 +72,7 @@ if __name__ == '__main__':
 
 	# process the rest
 	for friend, count in friend_counts.iteritems():
-		if count > 0:
+		if count > 0 and friend != 'phonedude_mln':
 			friends.remove(friend)
 	with open('friend_counts', 'a') as outfile:
 		for friend in friends:
