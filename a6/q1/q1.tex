@@ -4,40 +4,67 @@
 \verbatiminput{q1/q1.txt}
 
 \subsection{Answer}
-Using Dr. Michael Nelson's Twitter account and the Twitter API \cite{api:twitter}, specifically the GET friends/list \cite{api:twitter_friendslist} request, all of Dr. Nelson's Twitter friends were obtained and saved to the file called {\tt friends}. This method also uses the API's paginating scheme: when there are a large number of results for a query, the API will send a cursor index to show that there are more results to process and that more requests are needed. The code to do this is in Listing \ref{listing:get_friends}. 
+As was illustrated in the original study of Zachary's karate club, \cite{wzach77}, a prediction of the structure of the club if a separation were to occur can be made with a high degree of accuracy using weighted edges based on the perceived ``strength'' of each relationship it modeled. The prediction method outlined in the original paper was an implementation of the \textit{maximum flow-minimum cut labeling procedure} \cite{forful62}. The pickled \cite{py:pickle} dataset of the existing karate club, with weights for each edge, was obtained from \url{http://nexus.igraph.org/api/dataset_info?id=1&format=html} and used to create the graph shown in Figure \ref{fig:existing_graph}.
 
-% \lstinputlisting[language=Python, caption={Getting the friends list}, label=listing:get_friends,linerange={38-57},firstnumber=38]{q1/get_friends.py}
-
-\clearpage
-
-To reduce the impact of high HTTP traffic, the Twitter API rate-limits most requests -- the one needed to obtain a user's friends list has a limit of fifteen message per fifteen minutes. Any requests received from a user or service that has reached the limit will be denied. To ensure no HTTP requests are sent after the limit has been reached the script will sleep until the limit resets. This is accomplished using Python's {\tt time} package \cite{py:time} and the methods shown in Listing \ref{listing:wait}.
-
-% \lstinputlisting[language=Python, caption={Waiting for API request limit reset}, label=listing:wait,linerange={24-36},firstnumber=24]{q1/get_friends.py}
-
-The {\tt get\_limit} method uses the API to find the number of available requests remaining for the GET friends/list method and also the time at which the limit will reset, received as seconds since the Unix epoch \cite{misc:stack_unixepoch}. This method, combined with the {\tt wait\_for\_reset} method, allowed the script to restart after an interruption and only require waiting for the appropriate amount of time. The sleep time was extended by 5 seconds to allow for a small buffer in case of mathematical errors.\\
-
-The friends of Dr. Nelson's friends were then obtained with the same {\tt get\_friends} method from Listing \ref{listing:get_friends} and stored in a file called {\tt friend\_counts}, each on a single line preceeded by their friend count. All of these operations were controlled by a main method, which is shown in Listing \ref{listing:main}.
-
-% \lstinputlisting[language=Python,caption={Main method}, label=listing:main, linerange={59-82},firstnumber=59]{q1/get_friends.py}
+\begin{figure}[h!]
+\centering
+\fbox{\includegraphics[scale=0.5]{q1/initial_karate_graph.pdf}}
+\caption{The Existing Graph}
+\label{fig:existing_graph}
+\end{figure}
 
 \clearpage
 
-The {\tt friend\_counts} file was ordered in place with the Unix command in Listing \ref{listing:sort}. 
+The actual structure of the two resulting clubs after the split are shown in Figure \ref{fig:actual}.
 
-\begin{lstlisting}[language=Bash,caption={Sort command},label=listing:sort]
-[mchaney@mchaney-l a5]$ cat friend_counts | sort -g -o friend_counts
-\end{lstlisting}
+\begin{figure}[h!]
+\centering
+\fbox{\includegraphics[scale=0.5]{q1/actual_after_split.pdf}}
+\caption{Actual Graph After Split}
+\label{fig:actual}
+\end{figure}
 
-This file was then processed by the R script shown in Listing \ref{listing:graph} to produce the graph in Figure \ref{fig:friend_graph}
-
-% \lstinputlisting[language=R, caption={Graph Creation Script}, label=listing:graph]{q1/plot_friends.R}
+To predict a separation of the existing graph into two or more distinct community components a pair of community detection algorithms will be employed and the results will be compared to the actual results of the split from Zachary's original study \cite{wzach77}. Community Detection was chosen as a means for predicting the results of fission events because it is logical that a given community would less likely be split along strong inter-community edges than those weaker, community-spanning edges.
 
 \clearpage
-The median, mean and standard deviation were all calculated, with the median, mean and median plus one standard deviation plotted as horizontal lines that intersect the data plot at their y-values. Only a single line was drawn for the standard deviation because the lower-end value was negative, and thus off the graph. 
 
-% \begin{figure}[h!]
-% \centering
-% \fbox{\includegraphics[scale=0.75]{q1/friend_plot.pdf}}
-% \caption{The Friendship Graph}
-% \label{fig:friend_graph}
-% \end{figure}
+The first algorithm used was the Edge Betweenness algorithm, developed by Girvan and Newman \cite{girnew04}. This is a divisive algorithm that removes edges that have the highest betweenness measure because these tend to be community-spanning edges. 
+
+\begin{figure}[h!]
+\centering
+\fbox{\includegraphics[scale=0.5]{q1/clust_eb.pdf}}
+\caption{Prediction of Edge Betweenness Algorithm}
+\label{fig:graph_eb}
+\end{figure}
+
+\begin{verbatim}
+Edge Betweenness method results: 
+Variant elements:
+	[3, 14]
+94.12% accuracy
+\end{verbatim}
+
+\clearpage
+
+The second method used was the Leading Eigenvector algorithm developed my M. Newman \cite{new06}. This method uses a special matrix, called the modularity matrix, to
+
+\begin{figure}[h!]
+\centering
+\fbox{\includegraphics[scale=0.5]{q1/clust_le.pdf}}
+\caption{Prediction of Leading Eigenvector Algorithm}
+\label{fig:graph_le}
+\end{figure}
+
+\begin{verbatim}
+Leading Eigenvector method results: 
+Variant elements:
+	[]
+100.0 % accuracy
+\end{verbatim}
+
+
+\clearpage
+
+The python code to produce these graphs is shown in Listing \ref{listing:karate}.
+
+\lstinputlisting[language=Python, caption={Finding Communities in Zachary's Karate Club}, label=listing:karate]{q1/karate.py}
