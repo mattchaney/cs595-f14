@@ -42,15 +42,12 @@
 		d3.json("out.json", function(error, graph) {
 			var nodes = [];
 			var links = [];
-			var removalLinks = [];
 
 			graph.nodes.forEach(function(d, i) {
-				d.id = i;
 				nodes.push(d);
 			});
 
 			graph.links.forEach(function(d, i) {
-				d.id = i;
 				links.push(d);
 			});
 
@@ -77,11 +74,6 @@
 				.attr("class", "text")
 				.text(function(d) { return d.id; });
 
-			force.nodes(nodes)
-				.links(links)
-				.on("tick", tick)
-				.start();
-
 			function tick() {
 				link.attr("x1", function(d) { return d.source.x; })
 				    .attr("y1", function(d) { return d.source.y; })
@@ -92,18 +84,20 @@
 			};
 
 			function update() {
-				force.nodes(nodes)
-					 .links(links);
 				node.data(nodes)
 					.exit().remove();
 				link.data(links)
 					.exit().remove();
+				force.nodes(nodes)
+					.links(links)
+					.on("tick", tick)
+					.start();
 			};
 
 			var done = false;
 			svg.on("click", function(d) {
 				if(!done) {
-					// 2 iterations required... 
+					// 2 iterations required... ?!
 					done = true;
 					links.forEach(function(d, i, arr) {
 						if(nodes[d.source.id].club != nodes[d.target.id].club) {
