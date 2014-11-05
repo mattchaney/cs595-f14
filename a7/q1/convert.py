@@ -4,7 +4,7 @@ import pickle
 import json
 
 def build_matrix(raw, n):
-	"""Builds a matrix from a list of strings where each string in
+	"""Builds a matrix from a list of strings where each string
 	is a space-separated row of the matrix"""
 	matrix = [[0 for y in range(n)] for x in range(n)]
 	for idx, line in enumerate(raw):
@@ -26,8 +26,7 @@ def build_links(egraph, cgraph):
 	return links
 
 if __name__ == '__main__':
-	filename = 'karate.pickle'
-	data = pickle.loads(open(filename).read())['karate']
+	data = pickle.loads(open('karate.pickle').read())['karate']
 	clubs = data.vs['Faction']
 	names = data.vs['name']
 

@@ -1,0 +1,8 @@
+Using D3, create a graph of the Karate club before and after
+the split.
+
+- Weight the edges with the data from: 
+http://vlado.fmf.uni-lj.si/pub/networks/data/ucinet/zachary.dat
+
+- Have the transition from before/after the split occur on a mouse
+click.

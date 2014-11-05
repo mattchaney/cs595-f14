@@ -1,0 +1,79 @@
+\documentclass[10pt,letterpaper,bibliography=totocnumbered]{scrartcl}
+
+\usepackage[letterpaper,margin=1.2in]{geometry}
+\usepackage{helvet}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage[all]{hypcap} 
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{verbatim}
+
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9, .9, .9}
+\definecolor{darkgray}{rgb}{.4, .4, .4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  sensitive=true
+}
+
+\lstset{
+    basicstyle=\scriptsize,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=shadowbox,
+    tabsize=4,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+    keywordstyle=\color{blue!70},
+    commentstyle=\color{red!50!green!50!blue!50},
+    rulesepcolor=\color{red!20!green!20!blue!20},
+    numberbychapter=false,
+    stringstyle=\ttfamily
+}
+
+\setcounter{tocdepth}{2}
+
+\hypersetup{colorlinks=true,
+breaklinks=true,
+urlcolor=blue,
+linkcolor=black
+}
+
+\begin{document}
+
+\author{Mathew Chaney}
+\title{Assignment 7}
+\subtitle{Fall 2014\\ CS595 Web Science\\ Dr. Michael Nelson}
+\maketitle
+\newpage
+
+\tableofcontents
+\listoffigures
+\lstlistoflistings
+
+\include{q1/q1}
+
+\bibliography{report}
+\bibliographystyle{unsrt}
+
+\end{document}
