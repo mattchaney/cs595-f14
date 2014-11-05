@@ -40,25 +40,14 @@
 			.size([width, height]);
 
 		d3.json("out.json", function(error, graph) {
-			var nodes = [];
-			var links = [];
-
-			graph.nodes.forEach(function(d, i) {
-				nodes.push(d);
-			});
-
-			graph.links.forEach(function(d, i) {
-				links.push(d);
-			});
-
 			var link = svg.selectAll(".link")
-				.data(links)
+				.data(graph.links)
 			  	.enter().append("line")
 				.attr("class", "link")
 				.style("stroke-width", function(d) { return Math.sqrt(d.value); });
 
 			var node = svg.selectAll(".node")
-				.data(nodes)
+				.data(graph.nodes)
 			  	.enter().append("g")
 				.attr("class", "node")
 				.call(force.drag);
@@ -84,12 +73,12 @@
 			};
 
 			function update() {
-				node.data(nodes)
+				node.data(graph.nodes)
 					.exit().remove();
-				link.data(links)
+				link.data(graph.links)
 					.exit().remove();
-				force.nodes(nodes)
-					.links(links)
+				force.nodes(graph.nodes)
+					.links(graph.links)
 					.on("tick", tick)
 					.start();
 			};
@@ -97,18 +86,18 @@
 			var done = false;
 			svg.on("click", function(d) {
 				if(!done) {
-					// 2 iterations required... ?!
+					// 2 iterations required... 
 					done = true;
-					links.forEach(function(d, i, arr) {
-						if(nodes[d.source.id].club != nodes[d.target.id].club) {
-							links.splice(i, 1);
-						}
+					graph.links.forEach(function(d, i) {
+						if(graph.nodes[d.source.id].club != graph.nodes[d.target.id].club) {
+							graph.links.splice(i, 1);
+						};
 					});
-					links.forEach(function(d, i, arr) {
-						if(nodes[d.source.id].club != nodes[d.target.id].club) {
-							links.splice(i, 1);
+					graph.links.forEach(function(d, i) {
+						if(graph.nodes[d.source.id].club != graph.nodes[d.target.id].club) {
+							graph.links.splice(i, 1);
 						}
-					});
+					});					
 					update();
 					force.start();
 				}
