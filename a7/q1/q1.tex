@@ -4,7 +4,7 @@
 \verbatiminput{q1/q1.txt}
 
 \subsection{Answer}
-Using an example from the primary author of the D3 JavaScript library, Mike Bostok \cite{d3:bostok12}, a graph was created using Zachary's Karate Club as the dataset. The edge weights were obtained from the pickled \cite{py:pickle} dataset found at \url{http://nexus.igraph.org/api/dataset_info?id=1&format=html}. The D3 library provides a force-directed graphing layout \cite{d3:force14}, which was used to display the graph and to allow for a transition from the initial graph, shown in Figure \ref{fig:init_graph}, to the graph after the split of the karate club, shown in Figure \ref{fig:split_graph}.
+Using an example from the primary author of the D3 JavaScript library, Mike Bostok \cite{d3:bostok12}, a graph was created of Zachary's Karate Club using the pickled \cite{py:pickle} dataset found at \url{http://nexus.igraph.org/api/dataset_info?id=1&format=html}. The D3 library provides a force-directed graphing layout \cite{d3:force14}, which was used to display the graph. A transition from the initial graph, shown in Figure \ref{fig:init_graph}, to the graph after the split of the karate club, shown in Figure \ref{fig:split_graph}, was created using standard JavaScript.
 
 \begin{figure}[h!]
 \centering
@@ -30,6 +30,6 @@ The python code to produce the json data is shown in Listing \ref{listing:conver
 
 \clearpage
 
-The javascript code to produce the graph is shown in Listing \ref{listing:build}.
+The JavaScript code to produce the graph is shown in Listing \ref{listing:build}.
 
 \lstinputlisting[language=JavaScript, caption={Building the Graph}, label=listing:build,linerange={27-97},firstnumber=27]{q1/build_graph.html}
