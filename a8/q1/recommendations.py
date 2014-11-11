@@ -23,6 +23,7 @@ from math import sqrt
 from numpy import mean
 from operator import itemgetter
 from pprint import pprint
+from sys import stdout
 
 # Returns a distance-based similarity score for person1 and person2
 def sim_distance(prefs,person1,person2):
@@ -199,10 +200,10 @@ def loadMovieLens():
 		users[user] = {'age': age, 'gender': gender, 'job': job, 'zipcode': zipcode}
 	return prefs, movies, users
 
-def get_avg(mid, user_filter=lambda x: True, age_filter=lambda x: True):
+def get_avg(prefs, mid, user_filter=lambda x: True):
 	ratings = []
 	for user, user_ratings in prefs.iteritems():
-		if user_filter(users[user]) and age_filter(users[user]) and user_ratings.has_key(movies[mid]):
+		if user_filter(users[user]) and user_ratings.has_key(movies[mid]):
 			ratings.append(user_ratings[movies[mid]])
 	if not ratings:
 		return 0.0
@@ -232,66 +233,122 @@ def get_sim_ratings(title, similar, top_key=lambda x, i: x[i][1], n=2000):
 	sorted_m = sorted(matches, key=itemgetter(0), reverse=similar)
 	return get_top(sorted_m, key=top_key, n=20)
 
+def tabulate(tuples, caption, label, colnames, output):
+	output.write('\\begin{table}[h!]\n')
+	output.write('\\centering\n')
+	opts = '| ' + ' | '.join(['l' for i in xrange(len(tuples[0]))]) + ' |'
+	output.write('\\begin{{tabular}}{{{0}}}\n'.format(opts))
+	output.write('\\hline\n')
+	header = ' & '.join(['{}' for i in xrange(len(tuples[0]))]).format(*colnames)
+	output.write(header + ' \\\\\n\\hline\n')
+	for item in tuples:
+		temp = ' & '.join(['{}' for i in xrange(len(item))])
+		output.write(temp.format(*item) + ' \\\\\n')
+	output.write('\\hline\n\\end{tabular}\n')
+	output.write('\\caption{{{0}}}\n'.format(caption))
+	output.write('\\label{{tab:{0}}}\n'.format(label))
+	output.write('\\end{table}\n\n')
 print "Parsing data"
 prefs, movies, users = loadMovieLens()
 
+def flatten(tup, f=lambda x: (x[0], x[1][0][1], x[1][0][0])):
+	return f(tup)
+
 if __name__ == '__main__':
-	print "#1. What 5 movies have the highest average ratings?"
-	averages_all = {movie: get_avg(mid) for mid, movie in movies.iteritems()}
-	sorted_avg_all = sorted(averages_all.items(), key=itemgetter(1), reverse=True)
-	top_all = get_top(sorted_avg_all)
-	pprint(top_all)
+	with open('output.tex', 'w') as outfile:
+		question1 = '1. What 5 movies have the highest average ratings?'
+		averages_all = {movie: get_avg(prefs, mid) for mid, movie in movies.iteritems()}
+		sorted_avg_all = sorted(averages_all.items(), key=itemgetter(1), reverse=True)
+		top_all = get_top(sorted_avg_all)
+		tabulate(top_all, 'Highest Average Rating', 'hiavgrat', ('Title', 'Rating'), 
+		         outfile)
+		print "done with 1"
 
-	print "\n#2. What 5 movies received the most ratings? Show the movies and the number of ratings sorted by number of ratings."
-	movie_counts = {movie: count_movie_ratings(prefs, mid) for mid, movie in movies.iteritems()}
-	sorted_counts = sorted(movie_counts.items(), key=itemgetter(1), reverse=True)
-	top_movie_counts = get_top(sorted_counts)
-	pprint(top_movie_counts)
+		question2 = "2. What 5 movies received the most ratings? Show the movies and the number of ratings sorted by number of ratings."
+		movie_counts = {movie: count_movie_ratings(prefs, mid) for mid, movie in movies.iteritems()}
+		sorted_counts = sorted(movie_counts.items(), key=itemgetter(1), reverse=True)
+		top_movie_counts = get_top(sorted_counts)
+		tabulate(top_movie_counts, 'Most Ratings', 'mratings', ('Title', 'Ratings Count'), outfile)
+		print "done with 2"
 
-	print "\n#3. What 5 movies were rated the highest on average by women? Show the movies and their ratings sorted by ratings."
-	averages_w = {movie: get_avg(mid, user_filter=lambda x: x['gender']=='F') for mid, movie in movies.iteritems()}
-	sorted_avg_w = sorted(averages_w.items(), key=itemgetter(1), reverse=True)
-	top_avg_w = get_top(sorted_avg_w)
-	pprint(top_avg_w)
+		question3 = "3. What 5 movies were rated the highest on average by women? Show the movies and their ratings sorted by ratings."
+		averages_w = {movie: get_avg(prefs, mid, user_filter=lambda x: x['gender']=='F') for mid, movie in movies.iteritems()}
+		sorted_avg_w = sorted(averages_w.items(), key=itemgetter(1), reverse=True)
+		top_avg_w = get_top(sorted_avg_w)
+		tabulate(top_avg_w, 'Highest Ratings by Women', 'hwratings', ('Title', 'Rating'), outfile)
+		print "done with 3"
 
-	print "\n#4. What 5 movies were rated the highest on average by men? Show the movies and their ratings sorted by ratings."
-	averages_m = {movie: get_avg(mid, user_filter=lambda x: x['gender']=='M') for mid, movie in movies.iteritems()}
-	sorted_avg_m = sorted(averages_m.items(), key=itemgetter(1), reverse=True)
-	top_avg_m = get_top(sorted_avg_m)
-	pprint(top_avg_m)
+		question4 = "4. What 5 movies were rated the highest on average by men? Show the movies and their ratings sorted by ratings."
+		averages_m = {movie: get_avg(prefs, mid, user_filter=lambda x: x['gender']=='M') for mid, movie in movies.iteritems()}
+		sorted_avg_m = sorted(averages_m.items(), key=itemgetter(1), reverse=True)
+		top_avg_m = get_top(sorted_avg_m)
+		tabulate(top_avg_m, 'Highest Ratings by Men', 'hmratings', ('Title', 'Rating'), outfile)
+		print "done with 4"
 
-	print "\n#5. What movie received ratings most like Top Gun?"
-	pprint(get_sim_ratings("Top Gun (1986)", similar=True, top_key=lambda x, i: x[i][0]))
-	print "\n#5 cont'd. Which movie received ratings that were least like Top Gun (negative correlation)?"
-	pprint(get_sim_ratings("Top Gun (1986)", similar=False, top_key=lambda x, i: x[i][0]))
+		question5 = "5. What movie received ratings most like Top Gun?"
+		sim_top_gun = get_sim_ratings("Top Gun (1986)", similar=True, top_key=lambda x, i: x[i][0])
+		tabulate(sim_top_gun, 'Most like Top Gun', 'mltg', ('Title', 'Rating'), outfile)
+		print "done with 5"
+		
+		question55 = "5 cont'd. Which movie received ratings that were least like Top Gun (negative correlation)"
+		dissim_top_gun = get_sim_ratings("Top Gun (1986)", similar=False, top_key=lambda x, i: x[i][0])
+		tabulate(dissim_top_gun, 'Least like Top Gun', 'lltg', ('Title', 'Rating'), outfile)
+		print "done with 5.5"
 
-	print "\n6. Which 5 raters rated the most films? Show the raters' IDs and the number of films each rated."
-	counts = {user: len(user_ratings) for user, user_ratings in prefs.iteritems()}
-	sorted_counts = sorted(counts.items(), key=itemgetter(1), reverse=True)
-	top_rater_counts = get_top(sorted_counts)
-	pprint(top_rater_counts)
+		question6 = "6. Which 5 raters rated the most films? Show the raters' IDs and the number of films each rated."
+		counts = {user: len(user_ratings) for user, user_ratings in prefs.iteritems()}
+		sorted_counts = sorted(counts.items(), key=itemgetter(1), reverse=True)
+		top_rater_counts = get_top(sorted_counts)
+		tabulate(top_rater_counts, 'Most Opinionated Viewers', 'opinion', ('Rater ID', 'Ratings Count'), outfile)
+		print "done with 6"
 
-	print "\n#7. Which 5 raters most agreed with each other? Show the raters' IDs and Pearson's r, sorted by r."
-	raters_sim = calcSimilarUsers(prefs, n=1, similarity=sim_pearson)
-	sorted_sim = sorted(raters_sim.items(), key=lambda x: x[1][0], reverse=True)
-	top_sim_raters = get_top(sorted_sim, key=lambda x,i: x[i][1][0])
-	pprint(top_sim_raters)
+		question7 = "7. Which 5 raters most agreed with each other? Show the raters' IDs and Pearson's r, sorted by r."
+		raters_sim = calcSimilarUsers(prefs, n=1, similarity=sim_pearson)
+		sorted_sim = sorted(raters_sim.items(), key=lambda x: x[1][0], reverse=True)
+		top_sim_raters = get_top(sorted_sim, key=lambda x,i: x[i][1][0])
+		top_sim_raters = [flatten(rater) for rater in top_sim_raters]
+		tabulate(top_sim_raters,
+		         'Bandwagoners', 
+		         'band', 
+		         ('User 1 ID', 'User 2 ID', 'r Value'), 
+		         outfile)
+		print "done with 7"
 
-	print "#\n8. Which 5 raters most disagreed with each other (negative correlation)? Show the raters' IDs and Pearson's r, sorted by r."
-	sorted_dissim = sorted(raters_sim.items(), key=lambda x: x[1][0])
-	top_dissim_raters = get_top(sorted_dissim, key=lambda x,i: x[i][1][0])
-	pprint(top_dissim_raters)
+		question8 = "8. Which 5 raters most disagreed with each other (negative correlation)? Show the raters' IDs and Pearson's r, sorted by r"
+		sorted_dissim = sorted(raters_sim.items(), key=lambda x: x[1][0])
+		top_dissim_raters = get_top(sorted_dissim, key=lambda x,i: x[i][1][0])
+		top_dissim_raters = [flatten(rater) for rater in top_dissim_raters]
+		tabulate(top_dissim_raters,
+		         'Nemeses', 
+		         'cont', 
+		         ('User 1 ID', 'User 2 ID', 'r Value'), 
+		         outfile)
+		print "done with 8"
 
-	print "#\n9.  What movie was rated highest on average by men over 40?"
-	averages_mo = {movie: get_avg(mid, user_filter=lambda x: x['gender']=='M', age_filter=lambda x: x['age']>40) for mid, movie in movies.iteritems()}
-	sorted_avg_mo = sorted(averages_mo.items(), key=itemgetter(1), reverse=True)
-	top_avg_mo = get_top(sorted_avg_mo)
-	pprint(top_avg_mo)
+		question9 = "9.  What movie was rated highest on average by men over 40?"
+		averages_mo = {movie: get_avg(prefs, mid, user_filter=lambda x: x['gender']=='M' and int(x['age'])>40) for mid, movie in movies.iteritems()}
+		sorted_avg_mo = sorted(averages_mo.items(), key=itemgetter(1), reverse=True)
+		top_avg_mo = get_top(sorted_avg_mo)
+		tabulate(top_avg_mo, 'Highest Ratings by Old Men', 'hrbom', ('Title', 'Rating'), outfile)
+		print "done with 9"
 
-	print "\n#9 cont'd. By men under 40?"
-	averages_mo = {movie: get_avg(mid, user_filter=lambda x: x['gender']=='M', age_filter=lambda x: x['age']<40) for mid, movie in movies.iteritems()}
-	sorted_avg_mo = sorted(averages_mo.items(), key=itemgetter(1), reverse=True)
-	top_avg_mo = get_top(sorted_avg_mo)
-	pprint(top_avg_mo)
+		question95 = "9 cont'd. By men under 40?"
+		averages_mu = {movie: get_avg(prefs, mid, user_filter=lambda x: x['gender']=='M' and int(x['age'])<40) for mid, movie in movies.iteritems()}
+		sorted_avg_mu = sorted(averages_mu.items(), key=itemgetter(1), reverse=True)
+		top_avg_mu = get_top(sorted_avg_mu)
+		tabulate(top_avg_mu, 'Highest Ratings by Almost Old Men', 'hrbaom', ('Title', 'Rating'), outfile)
+		print "done with 9.5"
 
-	# 10. What movie was rated highest on average by women over 40? By women under 40?
+		question10 = "10. What movie was rated highest on average by women over 40?"
+		averages_wo = {movie: get_avg(prefs, mid, user_filter=lambda x: x['gender']=='F' and int(x['age'])>40) for mid, movie in movies.iteritems()}
+		sorted_avg_wo = sorted(averages_wo.items(), key=itemgetter(1), reverse=True)
+		top_avg_wo = get_top(sorted_avg_wo)
+		tabulate(top_avg_wo, 'Highest Ratings by Old Women', 'hrbow', ('Title', 'Rating'), outfile)
+		print "done with 10"
+
+		question105 = "10. cont'd. By women under 40?"
+		averages_wu = {movie: get_avg(prefs, mid, user_filter=lambda x: x['gender']=='F' and int(x['age'])<40) for mid, movie in movies.iteritems()}
+		sorted_avg_wu = sorted(averages_wu.items(), key=itemgetter(1), reverse=True)
+		top_avg_wu = get_top(sorted_avg_wu)
+		tabulate(top_avg_wu, 'Highest Ratings by Almost Old Women', 'hrbaow', ('Title', 'Rating'), outfile)
+		print "done with 10.5"

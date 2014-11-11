@@ -1,0 +1,20 @@
+The goal of this project is to use the basic recommendation principles
+we have learned for user-collected data. You will modify the code
+given to you which performs movie recommendations from the MovieLense
+data sets.
+
+The MovieLense data sets were collected by the GroupLens Research
+Project at the University of Minnesota during the seven-month period
+from September 19th, 1997 through April 22nd, 1998. It is available
+for download from http://www.grouplens.org/node/73
+
+The code for reading from the u.data and u.item files and creating
+recommendations is described in the book Programming Collective
+Intelligence (check email for more details). You are to modify
+recommendations.py to answer the following questions. Each question
+your program answers correctly will award you 10 points. You must
+have the question answered completely correct; partial credit will
+only be awarded if your answer is very close to the correct one.
+
+Your output should clearly indicate the answers from the question
+you answered.  Provide any relevant discussion.
