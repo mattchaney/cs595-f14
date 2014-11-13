@@ -4,16 +4,21 @@
 \verbatiminput{q1/q1.txt}
 
 \subsection{Answer}
-\cite{py:numpy}
+Each question was answered by using some combination of the existing functions from {\tt recommendations.py} and some functions that were added. All of the tables provided were created using the {\tt tabulate} function (with some minor edits), which is shown in Listing \ref{listing:tab}. All of the code used can be found in Appendix A, which contains Listing \ref{listing:all}.
 
-% \begin{figure}[h!]
-% \centering
-% \fbox{\includegraphics[scale=0.4]{q1/split_graph.pdf}}
-% \caption{Graph After Split}
-% \label{fig:split_graph}
-% \end{figure}
+\lstinputlisting[language=Python, caption={tabulate function}, label=listing:tab, linerange={236-250}, firstnumber={236}]{q1/recommendations.py}
 
-% \lstinputlisting[language=Python, caption={Building the Tables}, label=listing:tabs]{q1/recommendations.py}
+\textbf{1. What 5 movies have the highest average ratings?}\\
+
+Question 1 was solved using the code in Listing \ref{listing:q1}, which utilizes the added {\tt get\_avg} and {\tt get\_top} functions, which are found in Listing \ref{listing:avgtop}. The {\tt get\_avg} function uses the {\tt mean} function from the numpy python library \cite{py:numpy}.
+
+\clearpage
+
+\lstinputlisting[language=Python, caption={Question 1 code}, label=listing:q1, linerange={259-265}, firstnumber={259}]{q1/recommendations.py}
+
+\lstinputlisting[language=Python, caption={get\_avg and get\_top functions}, label=listing:avgtop, linerange={203-221}, firstnumber={203}]{q1/recommendations.py}
+
+The results for Question 1 are shown in Table \ref{tab:hiavgrat}.
 
 \begin{table}[h!]
 \centering
@@ -33,9 +38,21 @@ Great Day in Harlem, A (1994) & 5.0 \\
 Santa with Muscles (1996) & 5.0 \\
 \hline
 \end{tabular}
-\caption{Highest Average Rating}
+\caption{Question 1: Highest Average Rating}
 \label{tab:hiavgrat}
 \end{table}
+
+\textbf{2. What 5 movies received the most ratings? Show the movies and the number of ratings sorted by number of ratings.}\\
+
+Question 2 was solved using the {\tt count\_movie\_ratings} and {\tt get\_top} functions. The code used is shown in Listings \ref{listing:q2}, \ref{listing:countratings} and \ref{listing:avgtop}.
+
+\clearpage
+
+\lstinputlisting[language=Python, caption={Question 2 code}, label=listing:q2, linerange={267-272}, firstnumber={267}]{q1/recommendations.py}
+
+\lstinputlisting[language=Python, caption={count\_movie\_ratings function}, label=listing:countratings, linerange={223-228}, firstnumber={223}]{q1/recommendations.py}
+
+The results for Question 2 are shown in Table \ref{tab:mratings}.
 
 \begin{table}[h!]
 \centering
@@ -50,9 +67,17 @@ Return of the Jedi (1983) & 507 \\
 Liar Liar (1997) & 485 \\
 \hline
 \end{tabular}
-\caption{Most Ratings}
+\caption{Question 2: Most Ratings}
 \label{tab:mratings}
 \end{table}
+
+\textbf{3. What 5 movies were rated the highest on average by women? Show the movies and their ratings sorted by ratings.}\\
+
+Question 3 was solved using the code in Listing \ref{listing:q3} and the {\tt get\_avg} and {\tt get\_top} functions from Listing \ref{listing:avgtop}.
+
+\lstinputlisting[language=Python, caption={question 3 code}, label=listing:q3, linerange={275-279}, firstnumber={275}]{q1/recommendations.py}
+
+The results of Question 3 are shown in Table \ref{tab:hwratings}.
 
 \begin{table}[h!]
 \centering
@@ -73,9 +98,19 @@ Prefontaine (1997) & 5.0 \\
 Mina Tannenbaum (1994) & 5.0 \\
 \hline
 \end{tabular}
-\caption{Highest Ratings by Women}
+\caption{Question 3: Highest Ratings by Women}
 \label{tab:hwratings}
 \end{table}
+
+\clearpage
+
+\textbf{4. What 5 movies were rated the highest on average by men? Show the movies and their ratings sorted by ratings.}\\
+
+Question 4 was solved using the code in Listing \ref{listing:q4} and the {\tt get\_avg} and {\tt get\_top} functions from Listing \ref{listing:avgtop}.
+
+\lstinputlisting[language=Python, caption={question 4 code}, label=listing:q4, linerange={281-286}, firstnumber={281}]{q1/recommendations.py}
+
+The results of Question 4 are shown in Table \ref{tab:hmratings}.
 
 \begin{table}[h!]
 \centering
@@ -100,15 +135,25 @@ Santa with Muscles (1996) & 5.0 \\
 Delta of Venus (1994) & 5.0 \\
 \hline
 \end{tabular}
-\caption{Highest Ratings by Men}
+\caption{Question 4: Highest Ratings by Men}
 \label{tab:hmratings}
 \end{table}
+
+\textbf{5. What movie received ratings most like Top Gun?}\\
+
+Question 5 was solved using the code from Listing \ref{listing:q5} and the {\tt get\_sim\_ratings} function from Listing \ref{listing:simratings}.
+
+\lstinputlisting[language=Python, caption={question 5 code}, label=listing:q5, linerange={288-296}, firstnumber={288}]{q1/recommendations.py}
+
+\lstinputlisting[language=Python, caption={get\_sim\_ratings function}, label=listing:simratings, linerange={230-234}, firstnumber={230}]{q1/recommendations.py}
+
+The results for Question 5 are shown in Tables \ref{tab:mltg1}, \ref{tab:mltg2} and \ref{tab:lltg}.
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{| l | l |}
 \hline
-Title & Rating \\
+Pearson's r & Title \\
 \hline
 1.0 & Shiloh (1997) \\
 1.0 & King of the Hill (1993) \\
@@ -140,6 +185,20 @@ Title & Rating \\
 1.0 & Metisse (Café au Lait) (1993) \\
 1.0 & Maybe, Maybe Not (Bewegte Mann, Der) (1994) \\
 1.0 & Manny \& Lo (1996) \\
+\hline
+\end{tabular}
+\caption{Question 5: Most like Top Gun}
+\label{tab:mltg1}
+\end{table}
+
+\clearpage
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{| l | l |}
+\hline
+Pearson's r & Title \\
+\hline
 1.0 & Man of the Year (1995) \\
 1.0 & Love Serenade (1996) \\
 1.0 & Last Time I Saw Paris, The (1954) \\
@@ -172,15 +231,19 @@ Title & Rating \\
 1.0 & 8 Seconds (1994) \\
 \hline
 \end{tabular}
-\caption{Most like Top Gun}
-\label{tab:mltg}
+\caption{Question 5 cont'd: Most like Top Gun}
+\label{tab:mltg2}
 \end{table}
+
+\clearpage
+
+\textbf{5. cont'd. Which movie received ratings that were least like Top Gun (negative correlation)}\\
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{| l | l |}
 \hline
-Title & Rating \\
+Pearson's r & Title \\
 \hline
 -1.0 & Babysitter, The (1995) \\
 -1.0 & Telling Lies in America (1997) \\
@@ -215,9 +278,19 @@ Title & Rating \\
 -1.0 & Bad Moon (1996) \\
 \hline
 \end{tabular}
-\caption{Least like Top Gun}
+\caption{Question 5.5: Least like Top Gun}
 \label{tab:lltg}
 \end{table}
+
+\textbf{6. Which 5 raters rated the most films? Show the raters' IDs and the number of films each rated.}\\
+
+Question 6 was solved using the code from Listing \ref{listing:q6} and the {\tt get\_top} function shown in Listing \ref{listing:avgtop}.
+
+\lstinputlisting[language=Python, caption={question 6 code}, label=listing:q6, linerange={298-303}, firstnumber={298}]{q1/recommendations.py} 
+
+The results of Question 6 are shown in Table \ref{tab:opinion}.
+
+\clearpage
 
 \begin{table}[h!]
 \centering
@@ -232,15 +305,27 @@ Rater ID & Ratings Count \\
 276 & 516 \\
 \hline
 \end{tabular}
-\caption{Most Opinionated Viewers}
+\caption{Question 6: Most Opinionated Viewers}
 \label{tab:opinion}
 \end{table}
+
+\textbf{7. Which 5 raters most agreed with each other? Show the raters' IDs and Pearson's r, sorted by r.}\\
+
+Question 7 was solved using the code shown in Listing \ref{listing:q7}, with the {\tt calcSimilarUsers} and the {\tt get\_top} functions from Listings \ref{listing:simuser} and \ref{listing:avgtop}, respectively. The {\tt flatten} function from Listing \ref{listing:flatten} was used to flatted the oddly arranged tuple that was created from the {\tt calcSimUsers} function.
+
+\lstinputlisting[language=Python, caption={question 7 code}, label=listing:q7, linerange={305-311}, firstnumber={305}]{q1/recommendations.py}
+
+\lstinputlisting[language=Python, caption={calcSimilarUsers function}, label=listing:simuser, linerange={144-153}, firstnumber={144}]{q1/recommendations.py}
+
+\lstinputlisting[language=Python, caption={flatten function}, label=listing:flatten, linerange={254-255}, firstnumber={254}]{q1/recommendations.py}
+
+The results for Question 7 are shown in Table \ref{tab:band}.
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{| l | l | l |}
 \hline
-User 1 ID & User 2 ID & r Value \\
+User 1 ID & User 2 ID & Pearson's r \\
 \hline
 772 & 889 & 1.0 \\
 889 & 772 & 1.0 \\
@@ -249,9 +334,19 @@ User 1 ID & User 2 ID & r Value \\
 846 & 941 & 1.0 \\
 \hline
 \end{tabular}
-\caption{Bandwagoners}
+\caption{Question 7: Bandwagoners}
 \label{tab:band}
 \end{table}
+
+\clearpage
+
+\textbf{8. Which 5 raters most disagreed with each other (negative correlation)? Show the raters' IDs and Pearson's r, sorted by r.}\\
+
+Question 8 was solved using the code from Listing \ref{listing:q8} and the {\tt get\_top} function from Listing \ref{listing:avgtop}.
+
+\lstinputlisting[language=Python, caption={question 8 code}, label=listing:q8, linerange={313-318}, firstnumber={313}]{q1/recommendations.py}
+
+The results for Question 8 are shown in Table \ref{tab:cont}.
 
 \begin{table}[h!]
 \centering
@@ -266,9 +361,19 @@ User 1 ID & User 2 ID & r Value \\
 796 & 205 & 0.791384015377 \\
 \hline
 \end{tabular}
-\caption{Nemeses}
+\caption{Question 8: Nemeses}
 \label{tab:cont}
 \end{table}
+
+\textbf{9. What movie was rated highest on average by men over 40?}\\
+
+Question 9 was solved using the code from Listing \ref{listing:q9} with the {\tt get\_avg} and {\tt get\_top} functions from Listing \ref{listing:avgtop}.
+
+\lstinputlisting[language=Python, caption={question 9 code}, label=listing:q9, linerange={320-332}, firstnumber={320}]{q1/recommendations.py}
+
+The results for Question 9 are shown in Tables \ref{tab:hrbom} and \ref{tab:hrbaom}.
+
+\clearpage
 
 \begin{table}[h!]
 \centering
@@ -303,9 +408,13 @@ Solo (1996) & 5.0 \\
 Hearts and Minds (1996) & 5.0 \\
 \hline
 \end{tabular}
-\caption{Highest Ratings by Old Men}
+\caption{Question 9: Highest Ratings by Men aged > 40}
 \label{tab:hrbom}
 \end{table}
+
+\clearpage
+
+\textbf{9. cont'd. By men under 40?}\\
 
 \begin{table}[h!]
 \centering
@@ -332,9 +441,19 @@ Santa with Muscles (1996) & 5.0 \\
 Delta of Venus (1994) & 5.0 \\
 \hline
 \end{tabular}
-\caption{Highest Ratings by Almost Old Men}
+\caption{Question 9.5: Highest Ratings by Men aged < 40}
 \label{tab:hrbaom}
 \end{table}
+
+\clearpage
+
+\textbf{10. What movie was rated highest on average by women over 40?}\\
+
+Question 10 was solved using the code from Listing \ref{listing:q10} with the {\tt get\_avg} and {\tt get\_top} functions from Listing \ref{listing:avgtop}.
+
+\lstinputlisting[language=Python, caption={question 10 code}, label=listing:q10, linerange={334-346}, firstnumber={334}]{q1/recommendations.py}
+
+The results for Question 10 are shown in Tables \ref{tab:hrbow} and \ref{tab:hrbaow}.
 
 \begin{table}[h!]
 \centering
@@ -370,9 +489,13 @@ Balto (1995) & 5.0 \\
 Great Dictator, The (1940) & 5.0 \\
 \hline
 \end{tabular}
-\caption{Highest Ratings by Old Women}
+\caption{Question 10: Highest Ratings by Women aged > 40}
 \label{tab:hrbow}
 \end{table}
+
+\clearpage
+
+\textbf{10. cont'd. By women under 40?}\\
 
 \begin{table}[h!]
 \centering
@@ -399,7 +522,11 @@ Mina Tannenbaum (1994) & 5.0 \\
 Backbeat (1993) & 5.0 \\
 \hline
 \end{tabular}
-\caption{Highest Ratings by Almost Old Women}
+\caption{Question 10.5: Highest Ratings by Women aged < 40}
 \label{tab:hrbaow}
 \end{table}
 
+\clearpage
+
+\section{Appendix A}
+\lstinputlisting[language=Python, caption={all code used}, label=listing:all]{q1/recommendations.py}
