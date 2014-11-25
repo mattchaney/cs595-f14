@@ -1,0 +1,2 @@
+Cluster the blogs using K-Means, using k=5,10,20. (see slide 18).
+How many interations were required for each value of k?

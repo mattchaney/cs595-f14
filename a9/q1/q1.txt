@@ -1,0 +1,18 @@
+Create a blog-term matrix.  Start by grabbing 100 blogs; include:
+
+http://f-measure.blogspot.com/
+http://ws-dl.blogspot.com/
+
+and grab 98 more as per the method shown in class.
+
+Use the blog title as the identifier for each blog (and row of the
+matrix).  Use the terms from every item/title (RSS) or entry/title
+(Atom) for the columns of the matrix.  The values are the frequency
+of occurrence.  Essentially you are replicating the format of the
+"blogdata.txt" file included with the PCI book code.  Limit the
+number of terms to the most "popular" (i.e., frequent) 500 terms,
+this is *after* the criteria on p. 32 (slide 7) has been satisfied.
+
+Create a histogram of how many pages each blog has (e.g., 30
+blogs with just one page, 27 with two pages, 29 with 3 pages and 
+so on).
