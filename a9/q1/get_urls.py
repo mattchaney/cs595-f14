@@ -17,8 +17,8 @@ with open('blog_urls', 'a') as outfile:
 			r = requests.get('http://www.blogger.com/next-blog?navBar=true&blogID=3471633091411211117')
 		except Exception, e:
 			continue
-		url = r.url.replace('?expref=next-blog', '')
+		url = r.url.replace('?expref=next-blog', 'rss.xml')
 		if url not in urls:
 			urls.add(url)
-			outfile.write(url + 'rss.xml\n')
+			outfile.write(url + '\n')
 			print url
