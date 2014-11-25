@@ -1,24 +1,34 @@
 #! /usr/bin/env python
 
 import requests
+from bs4 import BeautifulSoup
 
-with open('blog_urls') as infile:
-	urls = set([line.strip() for line in infile.readlines()])
+default = 'http://www.blogger.com/next-blog?navBar=true&blogID=3471633091411211117'
+must_haves = ['http://f-measure.blogspot.com/', 'http://ws-dl.blogspot.com/']
 
-with open('blog_urls', 'w') as outfile:
-	for url in urls:
-		if 'rss.xml' not in url:
-			url = url + 'rss.xml'
+def get_atom(url):
+	try:
+		r = requests.get(url)
+	except Exception, e:
+		return None
+	soup = BeautifulSoup(r.text)
+	links = soup.find_all('link', {'type':'application/atom+xml'})
+	if links: 
+		return str(links[0]['href'])
+	return None
+
+def add_url(url, urls, outfile):
+	if url and url not in urls:
+		urls.add(url)
 		outfile.write(url + '\n')
+		print len(urls), url
 
-with open('blog_urls', 'a') as outfile:
-	while len(urls) < 100:
-		try:
-			r = requests.get('http://www.blogger.com/next-blog?navBar=true&blogID=3471633091411211117')
-		except Exception, e:
-			continue
-		url = r.url.replace('?expref=next-blog', 'rss.xml')
-		if url not in urls:
-			urls.add(url)
-			outfile.write(url + '\n')
-			print url
+if __name__ == '__main__':
+	urls = set()
+	with open('blog_urls', 'w') as outfile:
+		for must_have in must_haves:
+			url = get_atom(must_have)
+			add_url(url, urls, outfile)
+		while len(urls) < 100:
+			url = get_atom(default)
+			add_url(url, urls, outfile)
