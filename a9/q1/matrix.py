@@ -71,16 +71,22 @@ if __name__ == '__main__':
 			frac = float(bc) / len(uris)
 			if frac > 0.1 and frac < 0.5:
 				wordlist.append(w)
-		with open('blogdata1.txt','w') as out:
-			out.write('Blog')
-			for word in wordlist[:500]: 
-				out.write('\t%s' % word)
-			out.write('\n')
-			for blog, wc in wordcounts.items():
-				print blog
-				out.write(blog)
-				for word in wordlist[:500]:
-					if word in wc: 
-						out.write('\t{}'.format(wc[word]))
-					else: out.write('\t0')
+		if len(sys.argv) == 2 and sys.argv[1] == 'pages':
+			with open('pagecounts', 'w') as outfile:
+				outfile.write('blog\tpages\n')
+				for blog, pagecount in pagecounts.iteritems():
+					outfile.write("\"" + blog.replace("\"", "") + "\"" + '\t' + str(pagecount) + '\n')
+		if len(sys.argv) == 2 and sys.argv[1] == 'wc':
+			with open('blogdata1.txt', 'w') as out:
+				out.write('Blog')
+				for word in wordlist[:500]: 
+					out.write('\t%s' % word)
 				out.write('\n')
+				for blog, wc in wordcounts.items():
+					print blog
+					out.write(blog)
+					for word in wordlist[:500]:
+						if word in wc: 
+							out.write('\t{}'.format(wc[word]))
+						else: out.write('\t0')
+					out.write('\n')
