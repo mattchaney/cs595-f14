@@ -14,7 +14,7 @@ This uses the {\tt readfile} function shown in Listing \ref{listing:clust:read} 
 
 \lstinputlisting[language=Python, caption={hcluster function}, label=listing:clust:hclust,linerange={48-88},firstnumber=48]{q2/clusters.py}
 
-The {\tt printclust} function from Listing \ref{listing:clust:printclust} prints the ascii dendrogram of the cluster object parameter.
+The {\tt printclust} function from Listing \ref{listing:clust:printclust} prints the ascii dendrogram of the cluster object parameter to sys.stdout, which is redirected to write to a file with the code in Listing \ref{listing:clust:main}.
 
 \lstinputlisting[language=Python, caption={printclust function}, label=listing:clust:printclust,linerange={90-103},firstnumber=90]{q2/clusters.py}
 
@@ -26,5 +26,5 @@ The {\tt drawdendrogram} function from Listing \ref{listing:clust:drawdendro} cr
 \centering
 \fbox{\includegraphics[scale=0.3]{q2/dendrogram.jpg}}
 \caption{dendrogram}
-\label{fig:hist}
+\label{fig:clust}
 \end{figure}

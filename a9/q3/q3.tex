@@ -5,4 +5,14 @@
 
 \subsection{Answer}
 
-% \lstinputlisting[language=Python, caption={all code used}, label=listing:all]{q1/recommendations.py}
+Using the code in Listing \ref{listing:kclust} kclustering was performed with values for {\it n = 5}, {\it n = 10} and {\it n = 20}. The main function calls the kcluster function, which is shown in Listing \ref{listing:kclustdef}.
+
+\lstinputlisting[language=Python, caption={kclustering main}, label=listing:kclust, linerange={295-300},firstnumber=295]{q2/clusters.py}
+
+\lstinputlisting[language=Python, caption={kcluster function}, label=listing:kclustdef, linerange={174-212},firstnumber=174]{q2/clusters.py}
+
+\clearpage
+
+The output is shown in Listing \ref{listing:kclust:out}. As the output reads, a kcluster with {\it n = 5} required nine iterations, {\it n = 10} required four iterations and {\it n = 20} also required four iterations.
+
+\lstinputlisting[language=bash, caption={output of kclustering algorithm}, label=listing:kclust:out]{q3/kclust.txt}
