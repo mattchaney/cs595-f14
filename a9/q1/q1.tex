@@ -4,7 +4,7 @@
 \verbatiminput{q1/q1.txt}
 
 \subsection{Answer}
-To complete this assignment, a blog word count dataset was required. To start off, a list of blog URIs was obtained using the method described in class, implemented as the {\tt get\_uris.py} script. Two default blogs, F-Measure and the Old Dominion Web Science and Digital Libraries blogs, were added to the list and then, using the seed URI provided (Listing \ref{listing:default}), the remaining 98 URIs from random blogs within the blogger.com family were added. Then, using the {\tt matrix.py} script, the page counts for each blog were extracted and saved to a file called {\tt pagecounts}. The {\tt matrix.py} script is a modified version of {\tt generatefeedvectors.py} from the book {\it Programming Collective Intelligence} \cite{pci}. 
+To complete this assignment, a blog word count dataset was required. To start off, a list of blog URIs was obtained using the method described in class, implemented as the {\tt get\_uris.py} script, which can be found in Appendix A, Listing \ref{listing:get_uris}. Two default blogs, F-Measure and the Old Dominion Web Science and Digital Libraries blogs, were added as defaults to the initial URI list and then, using the seed URI provided (Listing \ref{listing:default}), the remaining 98 URIs from random blogs within the blogger.com family were added.
 
 \lstinputlisting[language=Python, caption={main for get\_uris.py}, label=listing:geturis:main, linerange={27-39}, firstnumber=27]{q1/get_uris.py}
 
@@ -18,15 +18,36 @@ The {\tt get\_uris main} function in Listing \ref{listing:geturis:main} was the 
 
 \lstinputlisting[language=Python, caption={add\_uri function}, label=listing:geturis:adduri, linerange={21-25}, firstnumber=21]{q1/get_uris.py}
 
-The contents of each blog were downloaded and processed by the code shown in Listing \ref{listing:matrix:get} and the {\tt get\_titles}, {\tt get\_words} and {\tt get\_next} functions found in Listing \ref{listing:matrix:gettitles}. This code loops over the URIs that were downloaded with the {\tt get\_uris.py} script, parses each entry and extracts all the words in each entry's title. These words were then compiled into a master list for all 100 blogs, with the top 500 words that fit into the range bounded by the code in Listing \ref{listing:matrix:bounds} being used for the final word count. 
+After the full list of 100 URIs was obtained page counts for each blog were extraced and saved to a file called {\tt pagecounts} using the {\tt matrix.py} script. This script is a modified version of {\tt generatefeedvectors.py} from the book {\it Programming Collective Intelligence} \cite{pci} and can be found in full in Appendix A, Listing \ref{listing:matrix}. 
 
-\lstinputlisting[language=Python, caption={looping over the URIs}, label=listing:matrix:get, linerange={40-49}, firstnumber=40]{q1/matrix.py}
+The code responsible for downloading the blogs and counting the words in each is shown in Listing \ref{listing:matrix:get}, which calls the {\tt get\_titles}, {\tt get\_words} and {\tt get\_next} functions found in Listing \ref{listing:matrix:gettitles}. This code loops over the list of URIs that was created with the {\tt get\_uris.py} script (Listing \ref{listing:get_uris}), parses each entry, and extracts all the words in each entry's title. 
+
+\lstinputlisting[language=Python, caption={looping over the URIs}, label=listing:matrix:get, linerange={95-105}, firstnumber=95]{q1/matrix.py}
 
 \clearpage
 
-\lstinputlisting[language=Python, caption={processing each blog}, label=listing:matrix:gettitles, linerange={8-37}, firstnumber=8]{q1/matrix.py}
+\lstinputlisting[language=Python, caption={processing each blog}, label=listing:matrix:gettitles, linerange={9-38}, firstnumber=9]{q1/matrix.py}
 
-\lstinputlisting[language=Python, caption={bounding the terms}, label=listing:matrix:bounds, linerange={70-73}, firstnumber=70]{q1/matrix.py}
+The parsed results were then read by the code in Listing \ref{listing:matrix:loadwrite}. This code used the {\tt load\_data} functions in Listing \ref{listing:matrix:loaddata} and \ref{listing:matrix:buildwordlist} to read each of the blog word counts and then created four collections to organize them all:
+
+\begin{enumerate}
+	\item {\tt apcount}: A dictionary containing the count for all words combined
+	\item {\tt wordcounts}: A dictionary containing each blog's individual word count
+	\item {\tt pagecounts}: A dictionary containing each blog's page count
+	\item {\tt wordlist}: A list containing all of the words found in each blog
+\end{enumerate}
+
+\lstinputlisting[language=Python, caption={creating the blog data matrix}, label=listing:matrix:loadwrite, linerange={107-115}, firstnumber=107]{q1/matrix.py}
+
+\clearpage
+
+\lstinputlisting[language=Python, caption={loading the data}, label=listing:matrix:loaddata, linerange={50-69}, firstnumber=50]{q1/matrix.py}
+
+\lstinputlisting[language=Python, caption={building the master wordlist}, label=listing:matrix:buildwordlist, linerange={71-77}, firstnumber=71]{q1/matrix.py}
+
+The code in Listing \ref{listing:matrix:writedata} then created the matrix using the {\tt write\_data} function.
+
+\lstinputlisting[language=Python, caption={writing the data}, label=listing:matrix:writedata, linerange={79-93}, firstnumber=79]{q1/matrix.py}
 
 To build a histogram showing the blog page counts, the {\tt pagecounts} file was parsed by the R script in Listing \ref{listing:hist} and saved as a pdf, which is shown in Figure \ref{fig:hist}.
 
