@@ -5,11 +5,9 @@
 
 \subsection{Answer}
 
-With the code in Listing \ref{listing:scaledownmain}, multidimensional scaling (MDS) was used to create a two-dimensional visualization of the blog distance graph.
+With the code in Listing \ref{listing:scaledownmain}, multidimensional scaling (MDS) was used to create a two-dimensional visualization of the blog distance graph. This code calls the {\tt scaledown} function, which is shown in Listing \ref{listing:scaledownfunc}. The algorithm continues until the error factor stops decreasing, as shown in the output in Appendix A, Listing \ref{scaledown}. 
 
 \lstinputlisting[language=Python, caption={main for scaledown}, label=listing:scaledownmain,linerange={301-302},firstnumber=301]{clusters.py}
-
-This main code calls the {\tt scaledown} function, which is shown in Listing \ref{listing:scaledownfunc}. The algorithm continues until the error factor stops decreasing, as shown in the output in Appendix A, Listing \ref{scaledown}. 
 
 \lstinputlisting[language=Python, caption={scaledown function}, label=listing:scaledownfunc,linerange={224-272},firstnumber=224]{clusters.py}
 
