@@ -1,0 +1,21 @@
+Choose a blog or a newsfeed (or something similar as long as it has
+an Atom or RSS feed).  It should be on a topic or topics of which you
+are qualified to provide classification training data.  In other words,
+choose something that you enjoy and are knowledgable of.  Find a feed
+with at least 100 entries.
+
+Create between four and eight different categories for the entries
+in the feed:
+
+examples: 
+
+work, class, family, news, deals
+
+liberal, conservative, moderate, libertarian
+
+sports, local, financial, national, international, entertainment
+
+metal, electronic, ambient, folk, hip-hop, pop
+
+Download and process the pages of the feed as per the week 12 
+class slides.

@@ -1,0 +1,16 @@
+Manually classify the first 50 entries, and then classify (using
+the fisher classifier) the remaining 50 entries. Report the cprob()
+values for the 50 titles as well.  From the title or entry itself,
+specify the 1-, 2-, or 3-gram that you used for the string to
+classify.  Do not repeat strings; you will have 50 unique strings.
+For example, in these titles the string used is marked with *s:
+
+*Rachel Goswell* - "Waves Are Universal" (LP Review) 
+The *Naked and Famous* - "Passive Me, Aggressive You" (LP Review)
+*Negativland* - "Live at Lewis's, Norfolk VA, November 21, 1992" (concert)
+Negativland - "*U2*" (LP Review)
+
+Note how "Negativland" is not repeated as a classification string.
+
+Create a table with the title, the string used for classification,
+cprob(), predicted category, and actual category.

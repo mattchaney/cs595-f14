@@ -1,0 +1,4 @@
+Assess the performance of your classifier in each of your categories
+by computing precision, recall, and F1.  Note that the definitions
+of precisions and recall are slightly different in the context of
+classification
