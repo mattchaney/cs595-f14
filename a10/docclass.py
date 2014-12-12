@@ -194,7 +194,7 @@ class fisherclassifier(classifier):
       if p>self.getminimum(c) and p>max:
         best=c
         max=p
-    return best
+    return best, p
 
 def sampletrain(cl):
   cl.train('Nobody owns the water.','good')
@@ -207,19 +207,42 @@ entries = matrix.load_data(matrix.data_file)
 cl = fisherclassifier(getwords)
 cl.setdb('data.db')
 
-if __name__ == '__main__':
-  with open('training') as infile:
-    training = {line.split('\t')[0]: line.split('\t')[1].strip() for line in infile}
-  for entry, group in training.iteritems():
-    cl.train(entry, group)
-  t = set(training.keys())
-  k = set(entries.keys())
+T_HEAD = """\\begin{table}[h!]
+\centering
+\\begin{tabular}{| l | l | l | l |}
+\hline
+Entry Title & Actual & Predicted & cprob \\\\
+\hline
+"""
+
+T_TAIL = """\hline
+\end{tabular}
+\caption{Question 2: Predictions }
+\label{tab:mratings}
+\end{table}
+"""
+
+def trainfrom(index=0):
+  keys = training.keys()
+  for key in keys[index:index+50]:
+    cl.train(key, training[key])
+  t = set(training.keys()[index:index+50])
+  k = set(entries)
   rest = k - t
   predict = {}
   for item in rest:
-    group = cl.classify(entries[item])
-    predict[item] = group
+    group, prob = cl.classify(item)
+    predict[item] = (group, prob)
+  with open('predict' + str(index), 'w') as outfile:
+    outfile.write(T_HEAD)
+    for item, tup in predict.iteritems():
+      title = item.replace('&', '\\&').replace('#', '\\#')
+      row = ' & '.join([title, training[item], tup[0], str(tup[1])])
+      outfile.write(row + ' \\\\\n')
+    outfile.write(T_TAIL)
 
-  with open('predict', 'w') as outfile:
-    for item, prediction in predict.iteritems():
-      outfile.write(item + '\t' + prediction + '\n')
+if __name__ == '__main__':
+  with open('training') as infile:
+    training = {line.split('\t')[0]: line.split('\t')[1].strip() for line in infile}
+  trainfrom(0)
+  trainfrom(50)

@@ -1,0 +1,61 @@
+\begin{table}[h!]
+\centering
+\begin{tabular}{| l | l | l | l |}
+\hline
+Entry Title & Actual & Predicted & cprob \\
+\hline
+Disc Girl & diy & diy & 0.139554246962 \\
+2013 DGCR Hawk Hollow Weekend & event & tourney & 0.135398562817 \\
+Hey! I'm Back! & personal & motorcycles & 0.742810969879 \\
+Last Ride of the Season & motorcycles & motorcycles & 0.569769009772 \\
+Promoting the Sport & event & news & 0.215734958342 \\
+Dyeing For Some New Discs.... & diy & personal & 0.127742032263 \\
+It's Been a Weird Sportster Year & motorcycles & diy & 0.459029096789 \\
+Frank Lloyd Wright Day Trip & news & game & 0.519935002549 \\
+Mach III Re-fit.... & diy & diy & 0.327231205524 \\
+Mike Sale: The Quest for 2,500 & event & news & 0.348489346703 \\
+2014 Chili Cook-Off & tourney & motorcycles & 0.568479771654 \\
+Betty Queen Open & tourney & tourney & 0.28731988169 \\
+2013 Hawk Hollow Open: Ams & tourney & tourney & 0.0528373296205 \\
+Feelin' Lucky?     Punk!.... & news & tourney & 0.655185013039 \\
+Red Oak Rumble & tourney & tourney & 0.655185013039 \\
+Beginners Guide for Disc Dyes (Long Post) & diy & diy & 0.195308043476 \\
+Snow Round at Loriella & game & game & 0.476013302099 \\
+PDGA World's, the rest of it... & tourney & tourney & 0.230722681279 \\
+Great Way to Start the Year & tourney & news & 0.466829424722 \\
+2013 Hawk Hollow Open... Pros & tourney & tourney & 0.0802708824856 \\
+Latest Disc Dye... & diy & diy & 0.0574532219591 \\
+Winter Round & game & tourney & 0.59657359028 \\
+Sporty Surprise... & motorcycles & tourney & 0.59657359028 \\
+Deluxe Retractable Birdie Bead Scoring System & diy & tourney & 0.759831170994 \\
+Latest Dye... & diy & diy & 0.154721589649 \\
+Seneca Sun Seeker & tourney & tourney & 0.655185013039 \\
+2013 Loriella Challenge & tourney & tourney & 0.257589575924 \\
+First Day in Charlottesville & tourney & game & 0.476013302099 \\
+Bayville Bash IX & tourney & tourney & 0.59657359028 \\
+State of the Sporty & motorcycles & news & 0.327231205524 \\
+Mornin' Round at Loriella & game & game & 0.476013302099 \\
+Hawk Hollow Open & tourney & tourney & 0.0672478176833 \\
+2nd Annual LoCo Open & tourney & tourney & 0.254631706407 \\
+SOMD Classic & tourney & tourney & 0.59657359028 \\
+Winchester IFO & tourney & tourney & 0.59657359028 \\
+D Day Ride... & motorcycles & game & 0.38493019271 \\
+Virginia Team Invitational & event & tourney & 0.166468597895 \\
+Good \& Bad day of DG & game & game & 0.257589575924 \\
+Vincent \& Jules.... & diy & tourney & 0.59657359028 \\
+All Ready for the World's & news & diy & 0.0772653501085 \\
+The Season is Over... & news & tourney & 0.215734958342 \\
+A Full Day Saturday & game & game & 0.257589575924 \\
+Last Day of Vacation & motorcycles & game & 0.476013302099 \\
+Turkey Day Doubles & game & game & 0.384502787693 \\
+New Improved Putter & diy & diy & 0.215734958342 \\
+Fall is coming... & motorcycles & tourney & 0.59657359028 \\
+Lost Another One... & diy & diy & 0.327231205524 \\
+First rounds at the Worlds & tourney & news & 0.351391490133 \\
+Ace Race Fun.... & event & personal & 0.476013302099 \\
+Day Two at the World's & tourney & diy & 0.122142469344 \\
+\hline
+\end{tabular}
+\caption{Question 1: Predictions}
+\label{tab:mratings}
+\end{table}

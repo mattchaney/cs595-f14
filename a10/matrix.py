@@ -15,41 +15,30 @@ def get_next(d):
 			return item['href']
 	return None
 
-def get_words(text):
-	txt = re.compile(r'<[^>]+>').sub('', text)
-	words = re.compile(r'[^A-Z^a-z]+').split(txt)
-	return [word.lower() for word in words if word != '']
-
-def parse_entries(uri):
+def parse_entries(entries, uri):
 	print('processing {}'.format(uri))
 	next = uri
-	entries = {}
 	while next is not None:
 		feed = feedparser.parse(next)
 		next = get_next(feed)
 		print('next {}'.format(next))
 		for entry in feed.entries:
-			words = get_words(entry.summary)
-			entries[entry.title] = words
-			if len(entries) == 100:
+			if entry.title in entries:
+				continue
+			entries.append(entry.title)
+			if len(entries) >= 100:
 				next = None
 				break
 	return entries
 
 def load_data(filename):
-	entries = {}
+	entries = []
 	with open(filename) as infile:
-		for line in infile.readlines():
-			tup = line.split('\t')
-			title = tup[0]
-			entry = ' '.join(json.loads(tup[1]))
-			entries[title] = entry
-	return entries
+		return [entry.strip() for entry in infile]
 
 if __name__ == '__main__':
-	entries = parse_entries(blog_uri)
+	old_entries = load_data(data_file)
+	entries = parse_entries(old_entries, blog_uri)
 	with open(data_file, 'w') as outfile:
-		for title, wc in entries.iteritems():
-			outfile.write(title + '\t')
-			json.dump(wc, outfile)
-			outfile.write('\n')
+		for entry in entries:
+			outfile.write(entry + '\n')
