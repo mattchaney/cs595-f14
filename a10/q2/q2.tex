@@ -5,7 +5,7 @@
 
 \subsection{Answer}
 
-The {\tt docclass.py} script was driven by the code shown in Listing \ref{listing:docdriver}. Before the script was run each of the 100 blog entries was classified manually to be used for training data later. This training is stored in the {\tt training} file. The {\tt docclass} main driver uses the first 50 entries as training for classifying the second 50 and then swaps each of these two sets. Tables \ref{tab:one} and \ref{tab:two} are the compiled training results with their actual classification and the cprob as calculated by the Fisher classifier. Refer to \ref{listing:docclass} in Appendix A for the full script.
+The {\tt docclass.py} script was driven by the code shown in Listing \ref{listing:docdriver}. Before the script was run each of the 100 blog entries was classified manually to be used for training data later. This training is stored in the {\tt training} file. The {\tt docclass} main driver uses the first 50 entries as training for classifying the second 50 and then swaps each of these two sets. Tables \ref{tab:one} and \ref{tab:two} are the compiled training results with their actual classification and the cprob as calculated by the Fisher classifier. Refer to \ref{listing:docclass} in Appendix A for the full script. Each of the entry titles was used in full as the training feature since most of them are only a few words.
 
 \clearpage
 
